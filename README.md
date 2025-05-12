@@ -15,5 +15,5 @@ A simple and responsive To-Do List application built with React. This app lets u
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/todo-list-app.git
+git clone https://github.com/thant-zin-aung/todo-list-app.git
 cd todo-list-app
