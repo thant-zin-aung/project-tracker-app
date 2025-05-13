@@ -45,7 +45,7 @@ const Nav = styled.nav`
         align-items: center;
         gap: 10px;
         font-size: 16px;
-        font-weight: light;
+        font-weight: 400;
     }        
     & .list-item .left-container div {
         display: flex;
