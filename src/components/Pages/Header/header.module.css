@@ -4,6 +4,12 @@
     flex-direction: column;
     justify-content: center;
 }
+.header .topContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .searchBoxContainer {
     width: 500px;
     height: 50px;
@@ -27,4 +33,14 @@
     opacity: 0.5;
     font-size: 17px;
     margin-right: 10px;
+}
+.dateContainer {
+    /* font-weight: 300; */
+}
+.dateContainer .calendarIcon {
+    margin-right: 15px;
+    font-weight: lighter;
+}
+.dateContainer input[type=date] {
+    display: none;
 }
