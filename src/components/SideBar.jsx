@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus, faBox, faPaperclip, faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { faPlus, faBox, faPaperclip, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import { faClock, faCircleCheck } from "@fortawesome/free-regular-svg-icons"
 
 const Nav = styled.nav`
@@ -106,7 +106,7 @@ function ListItem({icon, title}) {
                     {title}
                 </div>
                 <div>
-                    <FontAwesomeIcon icon={faArrowRight} className="arrow-icon"/>
+                    <FontAwesomeIcon icon={faAngleRight} className="arrow-icon"/>
                 </div>
             </div>
             <ul className="sub-list">
