@@ -23,7 +23,7 @@ const RowTitleContainer = styled.div`
         gap: 10px;
     }
     & .left-container .title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
     }
     & .left-container .title .total-task {
@@ -60,7 +60,7 @@ export function TaskRow(props) {
                     <button className="add-new-task-button"><FontAwesomeIcon icon={faPlus} className="plus-icon" /> New task</button>            
                 </div>
             </RowTitleContainer>
-            <TaskCard />
+            <TaskCard taskImage={props.taskImage}/>
         </RowContainer>
     )
 }

@@ -49,9 +49,16 @@ const Card = styled.div`
         width: 100%;
         height: 3px;
         background-color: #eaeaea;
+        margin-bottom: 20px;
     }
     & .progress-container .current-progress {
         height: 100%;
+    }
+    & .task-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
     }
 `
 
@@ -77,6 +84,7 @@ export function TaskCard(props) {
                     backgroundColor: '#ffc260'
                 }}></div>
             </div>
+            <img className='task-image' src={props.taskImage}/>
         </Card>
     )
 }
