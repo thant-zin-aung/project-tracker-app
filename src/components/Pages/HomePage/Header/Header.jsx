@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faAngleDown, faUserPlus, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar, faBell } from '@fortawesome/free-regular-svg-icons';
-import userProfileImage from '../../../assets/img/user-profile.jpg';
-import person1 from '../../../assets/img/person-1.jpg';
-import person2 from '../../../assets/img/person-2.jpg';
-import person3 from '../../../assets/img/person-3.jpg';
-import person4 from '../../../assets/img/person-4.jpg';
+import userProfileImage from '../../../../assets/img/user-profile.jpg';
+import person1 from '../../../../assets/img/person-1.jpg';
+import person2 from '../../../../assets/img/person-2.jpg';
+import person3 from '../../../../assets/img/person-3.jpg';
+import person4 from '../../../../assets/img/person-4.jpg';
 import headerStyle from './Header.module.css';
 import clsx from 'clsx';
 
