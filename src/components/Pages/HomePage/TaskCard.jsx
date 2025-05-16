@@ -41,8 +41,17 @@ const Card = styled.div`
     & .desc-container {
         width: 100%;
         text-align: left;
-        color: grey;
+        color: #919191;
         font-size: 15px;
+        margin-bottom: 20px;
+    }
+    & .progress-container {
+        width: 100%;
+        height: 3px;
+        background-color: #eaeaea;
+    }
+    & .progress-container .current-progress {
+        height: 100%;
     }
 `
 
@@ -60,7 +69,13 @@ export function TaskCard(props) {
                 </div>
             </div>
             <div className="desc-container">
-                Create additional fields for payment flow. Update design system.
+                Create additional fields for payment flow. Update design system. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam iusto, cupiditate quis deserunt, porro alias non, a ullam debitis quibusdam ex recusandae odio expedita distinctio animi inventore corrupti similique vero.
+            </div>
+            <div className="progress-container">
+                <div className="current-progress" style={{
+                    width: '30%',
+                    backgroundColor: '#ffc260'
+                }}></div>
             </div>
         </Card>
     )
