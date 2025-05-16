@@ -13,6 +13,7 @@ const Card = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 20px;
     }
     & .title-container .left-container {
         display: flex;
@@ -23,7 +24,7 @@ const Card = styled.div`
         margin-right: 10px;
     }
     & .title-container .left-container .card-title {
-        font-size: 20px;
+        font-size: 16px;
     }
     & .title-container .right-container {
         display: flex;
@@ -31,11 +32,17 @@ const Card = styled.div`
         color: grey;
     }
     & .title-container .right-container .pin-icon {
-        font-size: 18px;
+        font-size: 15px;
         margin-right: 10px;
     }
     & .title-container .right-container .pin-number {
-        font-size: 18px;
+        font-size: 15px;
+    }
+    & .desc-container {
+        width: 100%;
+        text-align: left;
+        color: grey;
+        font-size: 15px;
     }
 `
 
@@ -45,12 +52,15 @@ export function TaskCard(props) {
             <div className="title-container">
                 <div className="left-container">
                     <FontAwesomeIcon icon={faCircle} className='status-icon' style={{color: "#ffc260",}} />
-                    <span>Design</span>
+                    <span className='card-title'>Design</span>
                 </div>
                 <div className="right-container">
                     <FontAwesomeIcon icon={faPaperclip} className='pin-icon' />
                     <span className='pin-number'>1</span>
                 </div>
+            </div>
+            <div className="desc-container">
+                Create additional fields for payment flow. Update design system.
             </div>
         </Card>
     )

@@ -40,8 +40,10 @@ const RowTitleContainer = styled.div`
         border-radius: 20px;
         border: none;
         background-color: #f1f5fd;
+        font-size: 14px;
     }
     & .right-container .add-new-task-button .plus-icon {
+        font-size: 13px;
         color: #333cad;
         margin-right: 5px;
     }
