@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { TaskCard } from './TaskCard';
 
 const RowContainer = styled.div`
     display: flex;
@@ -14,6 +15,7 @@ const RowTitleContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin-bottom: 30px;
     
     & .left-container {
         display: flex;
@@ -56,6 +58,7 @@ export function TaskRow(props) {
                     <button className="add-new-task-button"><FontAwesomeIcon icon={faPlus} className="plus-icon" /> New task</button>            
                 </div>
             </RowTitleContainer>
+            <TaskCard />
         </RowContainer>
     )
 }
