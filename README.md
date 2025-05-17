@@ -48,13 +48,13 @@ npm install
 ### 3️⃣ Run the Development Server
 
 ```bash
-npm run start
+npm run dev
 ```
 
 ### 4️⃣ Open in Browser
 
 The app should automatically open in your default browser at:
-👉 http://localhost:3000
+👉 http://localhost:5173
 
 ### 📄 License
 This project is licensed under the MIT License.
