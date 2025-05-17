@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -45,6 +46,18 @@ const Card = styled.div`
         font-size: 15px;
         margin-bottom: 20px;
     }
+    & .due-day-container {
+        font-size: 13px;
+        color: grey;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    & .due-day-container .clock-icon {
+        font-size: 15px;
+        margin-right: 7px;
+    }
     & .progress-container {
         width: 100%;
         height: 3px;
@@ -59,6 +72,7 @@ const Card = styled.div`
         height: 150px;
         object-fit: cover;
         border-radius: 10px;
+        margin-bottom: 20px;
     }
 `
 
@@ -78,13 +92,18 @@ export function TaskCard(props) {
             <div className="desc-container">
                 Create additional fields for payment flow. Update design system. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam iusto, cupiditate quis deserunt, porro alias non, a ullam debitis quibusdam ex recusandae odio expedita distinctio animi inventore corrupti similique vero.
             </div>
+            <img className='task-image' src={props.taskImage}/>
+            <div className="due-day-container">
+                <FontAwesomeIcon icon={faClock} className='clock-icon' /> <span className="text">Due in 3 days</span>
+            </div>
             <div className="progress-container">
                 <div className="current-progress" style={{
                     width: '30%',
                     backgroundColor: '#ffc260'
                 }}></div>
             </div>
-            <img className='task-image' src={props.taskImage}/>
+            
+            
         </Card>
     )
 }
