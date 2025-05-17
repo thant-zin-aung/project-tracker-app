@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faPaperclip, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
+import userProfileImage from '../../../assets/img/user-profile.jpg';
+import person1 from '../../../assets/img/person-1.jpg';
+import person2 from '../../../assets/img/person-2.jpg';
+import person3 from '../../../assets/img/person-3.jpg';
+import person4 from '../../../assets/img/person-4.jpg';
 
 const Card = styled.div`
     width: 100%;
@@ -74,6 +79,24 @@ const Card = styled.div`
         border-radius: 10px;
         margin-bottom: 20px;
     }
+    & .bottom-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    & .contributor-container {
+    }
+    & .contributor-container img {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+    & .menu-icon {
+        color: grey;
+        cursor: pointer;
+    }
 `
 
 export function TaskCard(props) {
@@ -101,6 +124,16 @@ export function TaskCard(props) {
                     width: '30%',
                     backgroundColor: '#ffc260'
                 }}></div>
+            </div>
+            <div className="bottom-wrapper">
+                <div className="contributor-container">
+                    <img src={userProfileImage}/>
+                    <img src={person2} style={{transform: 'translateX(-10px)'}} />
+                    <img src={person1} style={{transform: 'translateX(calc(-10px * 2))'}} />
+                    <img src={person4} style={{transform: 'translateX(calc(-10px * 3))'}} />
+                    <img src={person3} style={{transform: 'translateX(calc(-10px * 4))'}} />
+                </div>
+                <FontAwesomeIcon icon={faEllipsis} className='menu-icon'/>
             </div>
             
             
