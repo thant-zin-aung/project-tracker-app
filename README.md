@@ -1,6 +1,8 @@
 # 📝 To-Do List App  
 
-A simple and responsive **To-Do List** application built with **React**. This app helps users stay organized and productive by allowing them to add, edit, delete, and complete tasks efficiently.  
+A powerful and intuitive **project-based task management app** built with **React** — designed for organizing, assigning, and tracking tasks within collaborative teams. Unlike a basic to-do list, this application emphasizes structured project workflows, allowing users to break down complex goals into actionable tasks such as “UI design,” “backend logic,” and more.
+
+Each **task card supports multiple contributors**, showcasing team members working together on the same task. The app provides a **clean and responsive UI** tailored for managing real-world projects with better visibility and accountability.
 
 ---
 
