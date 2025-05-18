@@ -57,4 +57,6 @@ The app should automatically open in your default browser at:
 ### 📄 License
 This project is licensed under the MIT License.
 
+---
+
 <div align="center"> Made with ❤️ by Thant Zin Aung </div>
