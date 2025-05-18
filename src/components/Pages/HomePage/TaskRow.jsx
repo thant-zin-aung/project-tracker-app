@@ -15,7 +15,7 @@ const RowTitleContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     
     & .left-container {
         display: flex;
@@ -49,18 +49,18 @@ const RowTitleContainer = styled.div`
     }
 `;
 
-export function TaskRow(props) {
+export function TaskRow({taskImage, taskRowTitle}) {
     return (
         <RowContainer>
             <RowTitleContainer>
                 <div className="left-container">
-                    <div className="title">Task title <span className="total-task">(26)</span> </div>
+                    <div className="title">{taskRowTitle} <span className="total-task">(26)</span> </div>
                 </div>
                 <div className="right-container">
                     <button className="add-new-task-button"><FontAwesomeIcon icon={faPlus} className="plus-icon" /> New task</button>            
                 </div>
             </RowTitleContainer>
-            <TaskCard taskImage={props.taskImage}/>
+            <TaskCard taskImage={taskImage}/>
         </RowContainer>
     )
 }

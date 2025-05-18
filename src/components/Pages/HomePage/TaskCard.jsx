@@ -13,7 +13,7 @@ const Card = styled.div`
     height: auto;
     padding: 20px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 8px;
     
     & .title-container {
         display: flex;
@@ -51,6 +51,13 @@ const Card = styled.div`
         font-size: 15px;
         margin-bottom: 20px;
     }
+    & .task-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 7px;
+        margin-bottom: 20px;
+    }
     & .due-day-container {
         font-size: 13px;
         color: grey;
@@ -67,17 +74,10 @@ const Card = styled.div`
         width: 100%;
         height: 3px;
         background-color: #eaeaea;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     & .progress-container .current-progress {
         height: 100%;
-    }
-    & .task-image {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 20px;
     }
     & .bottom-wrapper {
         display: flex;
@@ -87,8 +87,8 @@ const Card = styled.div`
     & .contributor-container {
     }
     & .contributor-container img {
-        width: 30px;
-        height: 30px;
+        width: 27px;
+        height: 27px;
         border-radius: 100%;
         object-fit: cover;
         border: 2px solid white;
