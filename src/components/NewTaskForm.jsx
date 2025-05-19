@@ -10,7 +10,6 @@ const NewTaskFormContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
 `;
 const TaskFormContainer = styled.div`
     width: 600px;
@@ -25,6 +24,16 @@ const TaskForm = styled.div`
     border: 2px solid;
     border-color: #e9e9e9;
     border-radius: 15px;
+
+    & .form-title {
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    & .form-sub-title {
+        font-size: 13px;
+        opacity: 0.8;
+    }
 `;
 
 export function NewTaskForm() {
@@ -32,7 +41,8 @@ export function NewTaskForm() {
         <NewTaskFormContainer>
             <TaskFormContainer>
                 <TaskForm>
-                    <h1>Hello from form</h1>    
+                    <h2 className="form-title">Create New Task</h2>
+                    <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
                 </TaskForm>    
             </TaskFormContainer>
             
