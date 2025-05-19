@@ -33,6 +33,19 @@ const TaskForm = styled.div`
     & .form-sub-title {
         font-size: 13px;
         opacity: 0.8;
+        margin-bottom: 20px;
+    }
+    & .input-field-wrapper {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+    }
+    & .input-field-wrapper label {
+        opacity: 0.7;
+    }
+    & .star-icon {
+        font-size: 13px;
+        color: red;
     }
 `;
 
@@ -43,6 +56,11 @@ export function NewTaskForm() {
                 <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
+                    <div className="input-field-wrapper">
+                        <div>
+                            <label htmlFor="">Task Title <span className='star-icon'>*</span></label>
+                        </div>
+                    </div>
                 </TaskForm>    
             </TaskFormContainer>
             
