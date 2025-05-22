@@ -35,13 +35,38 @@ const TaskForm = styled.div`
         opacity: 0.8;
         margin-bottom: 20px;
     }
-    & .input-field-wrapper {
+    & .input-field-container {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        /* justify-content: space-between; */
         font-size: 13px;
     }
-    & .input-field-wrapper label {
+    & .input-field-container .first-row-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        gap: 20px
+    }
+    & .input-field-container .first-row-container > div {
+        width: 100%;
+    }
+    & .input-field-container label {
         opacity: 0.7;
+        margin-bottom: 5px;
+    }
+    & .input-field-container input,textarea {
+        border: 1px solid;
+        border-color: #ededed;
+        background-color: #f8f8f8;
+        width: 100%;
+        height: 30px;
+        border-radius: 3px;
+        padding-left: 10px;
+    }
+    & textarea {
+        height: 100px;
     }
     & .star-icon {
         font-size: 13px;
@@ -56,9 +81,21 @@ export function NewTaskForm() {
                 <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
-                    <div className="input-field-wrapper">
+                    <div className="input-field-container">
+                        <div className="first-row-container">
+                            <div>
+                                <label htmlFor="task-title">Title <span className='star-icon'>*</span></label>
+                                <input type="text" id='task-title' spellCheck="false"/>
+                            </div>
+                            <div>
+                                <label htmlFor="task-title">Status <span className='star-icon'>*</span></label>
+                                <input type="text" id='task-title' spellCheck="false" />
+                            </div>
+                        </div>
                         <div>
-                            <label htmlFor="">Task Title <span className='star-icon'>*</span></label>
+                            <label htmlFor="task-title">Description <span className='star-icon'>*</span></label>
+                            <br />
+                            <textarea name="" id=""  spellCheck="false" ></textarea>
                         </div>
                     </div>
                 </TaskForm>    
