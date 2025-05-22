@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const NewTaskFormContainer = styled.div`
     width: 100vw;
@@ -25,6 +27,10 @@ const TaskForm = styled.div`
     border-color: #e9e9e9;
     border-radius: 15px;
 
+    & .star-icon {
+        font-size: 13px;
+        color: red;
+    }
     & .form-title {
         font-size: 25px;
         font-weight: 700;
@@ -73,10 +79,41 @@ const TaskForm = styled.div`
         height: 100px;
         padding: 10px;
     }
-    & .star-icon {
-        font-size: 13px;
-        color: red;
+    & .image-container input {
+        display: none;
     }
+    & .image-container .task-image-label {
+        width: 100%;
+        height: 200px;
+        background-color: #f8f8f8;
+        border: 2px dashed #acb0f9;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 1;
+        cursor: pointer;
+    }
+    & .image-container .task-image-label .upload-cloud-icon {
+        font-size: 80px;
+        color: #6b71ec;
+        margin-bottom: 5px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    & .image-container .task-image-label .hint-text {
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+        opacity: 1;
+        font-weight: 500;
+    }
+    & .image-container .task-image-label .hint-text u {
+        color: #6b71ec;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
 `;
 
 export function NewTaskForm() {
@@ -98,13 +135,22 @@ export function NewTaskForm() {
                             </div>
                         </div>
                         <div className='date-container'>
-                            <label htmlFor="task-due-date">Assignee <span className='star-icon'>*</span></label>
+                            <label htmlFor="task-due-date">Finish Due Date <span className='star-icon'>*</span></label>
                             <input type="date" name="due-date" id="task-due-date" />
                         </div>
                         <div className='desc-container'>
-                            <label htmlFor="task-title">Description <span className='star-icon'>*</span></label>
+                            <label htmlFor="task-desc">Description <span className='star-icon'>*</span></label>
                             <br />
-                            <textarea name="" id=""  spellCheck="false" ></textarea>
+                            <textarea name="" id="task-desc"  spellCheck="false" ></textarea>
+                        </div>
+                        <div className="image-container">
+                            <label htmlFor="">Image</label>
+                            <br />
+                            <label htmlFor="task-image" className='task-image-label'>
+                                <FontAwesomeIcon icon={faCloudArrowUp} className='upload-cloud-icon' />
+                                <div className="hint-text"><u>Browse</u> Files to upload</div>
+                            </label>
+                            <input type="file" name="task-image" id="task-image" />
                         </div>
                     </div>
                 </TaskForm>    
