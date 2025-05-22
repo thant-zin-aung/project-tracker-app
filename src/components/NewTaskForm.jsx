@@ -26,6 +26,7 @@ const TaskForm = styled.div`
     border: 2px solid;
     border-color: #e9e9e9;
     border-radius: 15px;
+    /* background: linear-gradient(to right bottom, #e8e9f6, #f8f8f8 40%); */
 
     & .star-icon {
         font-size: 13px;
@@ -113,6 +114,16 @@ const TaskForm = styled.div`
         cursor: pointer;
         font-weight: 700;
     }
+    & .add-button {
+        width: 100%;
+        height: 40px;
+        background-color: #4953d6;
+        border: none;
+        color: white;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+    }
 
 `;
 
@@ -152,6 +163,7 @@ export function NewTaskForm() {
                             </label>
                             <input type="file" name="task-image" id="task-image" />
                         </div>
+                        <button className="add-button">ADD</button>
                     </div>
                 </TaskForm>    
             </TaskFormContainer>
