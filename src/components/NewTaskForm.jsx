@@ -33,7 +33,7 @@ const TaskForm = styled.div`
     & .form-sub-title {
         font-size: 13px;
         opacity: 0.8;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
     & .input-field-container {
         display: flex;
@@ -41,12 +41,15 @@ const TaskForm = styled.div`
         /* justify-content: space-between; */
         font-size: 13px;
     }
+    & .input-field-container > div {
+        margin-bottom: 20px;
+    }
     & .input-field-container .first-row-container {
         width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-bottom: 20px;
+        /* margin-bottom: 20px; */
         gap: 20px
     }
     & .input-field-container .first-row-container > div {
@@ -55,6 +58,7 @@ const TaskForm = styled.div`
     & .input-field-container label {
         opacity: 0.7;
         margin-bottom: 5px;
+        display: inline-block;
     }
     & .input-field-container input,textarea {
         border: 1px solid;
@@ -67,6 +71,7 @@ const TaskForm = styled.div`
     }
     & textarea {
         height: 100px;
+        padding: 10px;
     }
     & .star-icon {
         font-size: 13px;
@@ -88,11 +93,15 @@ export function NewTaskForm() {
                                 <input type="text" id='task-title' spellCheck="false"/>
                             </div>
                             <div>
-                                <label htmlFor="task-title">Status <span className='star-icon'>*</span></label>
-                                <input type="text" id='task-title' spellCheck="false" />
+                                <label htmlFor="task-status">Status <span className='star-icon'>*</span></label>
+                                <input type="text" id='task-status' spellCheck="false" />
                             </div>
                         </div>
-                        <div>
+                        <div className='date-container'>
+                            <label htmlFor="task-due-date">Assignee <span className='star-icon'>*</span></label>
+                            <input type="date" name="due-date" id="task-due-date" />
+                        </div>
+                        <div className='desc-container'>
                             <label htmlFor="task-title">Description <span className='star-icon'>*</span></label>
                             <br />
                             <textarea name="" id=""  spellCheck="false" ></textarea>
