@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
 const NewTaskFormContainer = styled.div`
     width: 100vw;
@@ -19,6 +20,23 @@ const TaskFormContainer = styled.div`
     padding: 5px;
     background-color: white;
     border-radius: 15px;
+    position: relative;
+
+    & .close-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 22px;
+        /* color: #333cad; */
+        cursor: pointer;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+    }
+    & .close-icon:hover {
+        opacity: 1;
+        font-size: 25px;
+        color: red;
+    }
 `;
 const TaskForm = styled.div`
     width: 100%;
@@ -131,6 +149,7 @@ export function NewTaskForm() {
     return (
         <NewTaskFormContainer>
             <TaskFormContainer>
+                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' />
                 <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
