@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +11,7 @@ const NewTaskFormContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
+    display: ${({$isShow}) => $isShow ? 'flex' : 'none'};
     justify-content: center;
     align-items: center;
 `;
@@ -146,10 +147,14 @@ const TaskForm = styled.div`
 `;
 
 export function NewTaskForm() {
+    const [showNewTaskForm, setShowNewTaskForm] = useState(true);
+    let handleCloseNewTaskForm = () => {
+        setShowNewTaskForm(prev => !prev);
+    }
     return (
-        <NewTaskFormContainer>
+        <NewTaskFormContainer $isShow={showNewTaskForm}>
             <TaskFormContainer>
-                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' />
+                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' onClick={handleCloseNewTaskForm}/>
                 <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
