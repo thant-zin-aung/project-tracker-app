@@ -41,6 +41,7 @@ const RowTitleContainer = styled.div`
         border: none;
         background-color: #f1f5fd;
         font-size: 14px;
+        cursor: pointer;
     }
     & .right-container .add-new-task-button .plus-icon {
         font-size: 13px;
