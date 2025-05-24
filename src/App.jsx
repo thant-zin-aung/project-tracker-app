@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { db, auth } from './firebase';
 import viteLogo from '/vite.svg'
 import './App.css'
 import { SideBar } from './components/SideBar.jsx'
