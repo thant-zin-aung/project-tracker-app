@@ -6,12 +6,15 @@ import { HomePage } from './components/Pages/HomePage/HomePage.jsx'
 import { NewTaskForm } from './components/NewTaskForm.jsx';
 
 function App() {
-  
+  const [showNewTaskForm, setShowNewTaskForm] = useState(false);
+  let handleCloseNewTaskForm = () => {
+        setShowNewTaskForm(prev => !prev);
+  }
   return (
     <main>
       <SideBar />
-      <HomePage />
-      <NewTaskForm />
+      <HomePage onClickNewTask={handleCloseNewTaskForm}/>
+      <NewTaskForm isShowNewTaskForm={showNewTaskForm} onClickClose={handleCloseNewTaskForm}/>
     </main>  
   )
 }

@@ -2,11 +2,11 @@ import Header from "./Header/Header"
 import { TaskContainer } from "./TaskContainer"
 import PageStyle from './HomePage.module.css'
 
-export function HomePage(props) {
+export function HomePage({onClickNewTask}) {
     return (
         <div className={PageStyle.page}>
             <Header />
-            <TaskContainer />
+            <TaskContainer onClickNewTask={onClickNewTask}/>
         </div>
     )
 }

@@ -146,15 +146,11 @@ const TaskForm = styled.div`
 
 `;
 
-export function NewTaskForm() {
-    const [showNewTaskForm, setShowNewTaskForm] = useState(true);
-    let handleCloseNewTaskForm = () => {
-        setShowNewTaskForm(prev => !prev);
-    }
+export function NewTaskForm({isShowNewTaskForm, onClickClose}) {
     return (
-        <NewTaskFormContainer $isShow={showNewTaskForm}>
+        <NewTaskFormContainer $isShow={isShowNewTaskForm}>
             <TaskFormContainer>
-                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' onClick={handleCloseNewTaskForm}/>
+                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' onClick={onClickClose}/>
                 <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>

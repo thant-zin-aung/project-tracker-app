@@ -49,7 +49,7 @@ const RowTitleContainer = styled.div`
     }
 `;
 
-export function TaskRow({taskImage, taskRowTitle}) {
+export function TaskRow({onClickNewTask, taskImage, taskRowTitle}) {
     return (
         <RowContainer>
             <RowTitleContainer>
@@ -57,7 +57,7 @@ export function TaskRow({taskImage, taskRowTitle}) {
                     <div className="title">{taskRowTitle} <span className="total-task">(26)</span> </div>
                 </div>
                 <div className="right-container">
-                    <button className="add-new-task-button"><FontAwesomeIcon icon={faPlus} className="plus-icon" /> New task</button>            
+                    <button className="add-new-task-button" onClick={onClickNewTask}><FontAwesomeIcon icon={faPlus} className="plus-icon" /> New task</button>            
                 </div>
             </RowTitleContainer>
             <TaskCard taskImage={taskImage}/>
