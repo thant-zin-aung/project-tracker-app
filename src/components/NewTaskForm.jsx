@@ -94,6 +94,13 @@ const TaskForm = styled.div`
         height: 30px;
         border-radius: 3px;
         padding-left: 10px;
+        transition: border 0.3s ease;
+    }
+    & .input-field-container input:hover,textarea:hover {
+        border-color: #acb0f9;
+    }
+    & .input-field-container input:focus,textarea:focus {
+        outline-color: #acb0f9;
     }
     & textarea {
         height: 100px;
@@ -142,6 +149,10 @@ const TaskForm = styled.div`
         border-radius: 20px;
         font-weight: 600;
         cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    & .add-button:hover {
+        box-shadow: 1px 1px 16px 1px #b7bbec;
     }
 
 `;
