@@ -125,7 +125,7 @@ export function NewTaskForm() {
     return (
         <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
-                    <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
+                    <p className="form-sub-title">Add a new task by entering its title, selecting a priority status (Important, Default, or Irrelevant), setting a due date, and providing details. You can also upload an image to support the task. Click Add button to save and track it within your project.</p>
                     <div className="input-field-container">
                         <div className="first-row-container">
                             <div>

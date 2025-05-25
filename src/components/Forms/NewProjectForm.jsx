@@ -28,15 +28,7 @@ const ProjectForm = styled.div`
         font-size: 13px;
     }
     & .input-field-container > div {
-        margin-bottom: 20px;
-    }
-    & .input-field-container .first-row-container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        /* margin-bottom: 20px; */
-        gap: 20px
+        margin-bottom: 25px;
     }
     & .input-field-container label {
         opacity: 0.7;
@@ -81,11 +73,11 @@ export function NewProjectForm() {
     return (
         <ProjectForm>
                     <h2 className="form-title">Create New Project</h2>
-                    <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
+                    <p className="form-sub-title">Use this form to start a new project within your Project Tracker App. Give your project a clear and descriptive name that reflects the overall goal or initiative you want to manage. This name will help your team quickly identify the project in dashboards and task lists.</p>
                     <div className="input-field-container">
                         <div>
-                                <label htmlFor="task-title">Project Title <span className='star-icon'>*</span></label>
-                                <input type="text" id='task-title' spellCheck="false"/>
+                                <label htmlFor="project-name">Project Name <span className='star-icon'>*</span></label>
+                                <input type="text" id='project-name' spellCheck="false"/>
                         </div>
                         <button className="add-button">ADD</button>
                     </div>
