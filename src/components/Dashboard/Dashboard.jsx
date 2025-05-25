@@ -57,7 +57,6 @@ export default function Dashboard() {
         isShowNewFormContainer={showNewFormContainer}
         onClickClose={handleCloseNewFormContainer}
       >
-        {console.log("Child Form: ", childForm)}
         {childForm}
       </NewFormContainer>
     </main>

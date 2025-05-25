@@ -1,3 +1,6 @@
+import { db, auth } from "../firebase";
+import { getProjectsByOwner } from "../firestoreService";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -53,6 +56,10 @@ const Nav = styled.nav`
     font-size: 16px;
     font-weight: 400;
   }
+  & .list-item:hover .left-container {
+    font-weight: 500;
+    opacity: 1;
+  }
   & .list-item .left-container div {
     display: flex;
     align-items: center;
@@ -63,25 +70,68 @@ const Nav = styled.nav`
   }
   & .list-item .left-container div .arrow-icon {
     font-size: 12px;
+    transition: transform 0.5s ease;
   }
   & .list-item:hover .sub-list {
-    height: 130px;
+    margin-top: 30px;
+    max-height: 250px;
+  }
+  & .list-item:hover .arrow-icon {
+    transform: rotate(90deg);
   }
   & .list-item .sub-list {
-    margin-top: 10px;
+    /* margin-top: 20px; */
     padding-left: 30px;
     overflow-y: hidden;
-    height: 0;
-    transition: height 0.5s ease;
+    max-height: 0;
+    transition: all 0.5s ease;
+    list-style-type: none;
+    overflow-y: auto;
   }
   & .list-item .sub-list li {
     padding: 10px 0;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.4;
+  }
+  & .list-item .sub-list li:hover {
+    opacity: 1;
+  }
+
+  /* For Webkit-based browsers */
+  & .list-item .sub-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  & .list-item .sub-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  & .list-item .sub-list::-webkit-scrollbar-thumb {
+    background-color: #333cad;
+    border: 1px solid #f1f1f1;
+  }
+
+  & .list-item .sub-list::-webkit-scrollbar-thumb:hover {
+    background-color: #5d65cd;
   }
 `;
 
 export function SideBar({ onClickNewProject, clickableButtons }) {
+  const [projects, setProjects] = useState([]);
+  console.log("Projects:", projects);
+  useEffect(() => {
+    const fetchMyProjects = async () => {
+      try {
+        const user = auth.currentUser;
+        const myProjects = await getProjectsByOwner(user.uid);
+        setProjects(myProjects);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchMyProjects();
+  }, []);
+
   return (
     <Nav>
       <div className="header-container">
@@ -94,16 +144,16 @@ export function SideBar({ onClickNewProject, clickableButtons }) {
         </button>
       </div>
       <ul>
-        <ListItem icon={faBox} title="All projects" />
-        <ListItem icon={faPaperclip} title="Pinned" />
-        <ListItem icon={faClock} title="In process" />
-        <ListItem icon={faCircleCheck} title="Done" />
+        <ListItem icon={faBox} title="All projects" projects={projects} />
+        <ListItem icon={faPaperclip} title="Pinned" projects={projects} />
+        <ListItem icon={faClock} title="In process" projects={projects} />
+        <ListItem icon={faCircleCheck} title="Done" projects={projects} />
       </ul>
     </Nav>
   );
 }
 
-function ListItem({ icon, title }) {
+function ListItem({ icon, title, projects }) {
   return (
     <li className="list-item">
       <div className="left-container">
@@ -116,10 +166,23 @@ function ListItem({ icon, title }) {
         </div>
       </div>
       <ul className="sub-list">
+        {projects.map((project) => (
+          <li key={project.id} className="sub-list-item">
+            {project.name}
+          </li>
+        ))}
+        {/* <li className="sub-list-item">Item 1</li>
+        <li className="sub-list-item">Item 2</li>
+        <li className="sub-list-item">Item 3</li>
+        <li className="sub-list-item">Item 4</li>
         <li className="sub-list-item">Item 1</li>
         <li className="sub-list-item">Item 2</li>
         <li className="sub-list-item">Item 3</li>
         <li className="sub-list-item">Item 4</li>
+        <li className="sub-list-item">Item 1</li>
+        <li className="sub-list-item">Item 2</li>
+        <li className="sub-list-item">Item 3</li>
+        <li className="sub-list-item">Item 4</li> */}
       </ul>
     </li>
   );

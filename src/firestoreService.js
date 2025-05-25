@@ -1,10 +1,25 @@
 // firestoreService.js
 
-import { db } from "../firebase";
-import { collection, addDoc, getDocs, query, where, updateDoc, doc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "./firebase";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 // 1. Create a project
-export async function createProject(name, description, ownerId, contributors = []) {
+export async function createProject(
+  name,
+  description,
+  ownerId,
+  contributors = []
+) {
   try {
     const docRef = await addDoc(collection(db, "projects"), {
       name,
@@ -25,7 +40,18 @@ export async function getAllProjects() {
   const projectsRef = collection(db, "projects");
   const querySnapshot = await getDocs(projectsRef);
   const projects = [];
-  querySnapshot.forEach(doc => {
+  querySnapshot.forEach((doc) => {
+    projects.push({ id: doc.id, ...doc.data() });
+  });
+  return projects;
+}
+
+export async function getProjectsByOwner(userId) {
+  const projectsRef = collection(db, "projects");
+  const q = query(projectsRef, where("ownerId", "==", userId));
+  const querySnapshot = await getDocs(q);
+  const projects = [];
+  querySnapshot.forEach((doc) => {
     projects.push({ id: doc.id, ...doc.data() });
   });
   return projects;
@@ -37,7 +63,7 @@ export async function getProjectsByUser(userId) {
   const q = query(projectsRef, where("contributors", "array-contains", userId));
   const querySnapshot = await getDocs(q);
   const projects = [];
-  querySnapshot.forEach(doc => {
+  querySnapshot.forEach((doc) => {
     projects.push({ id: doc.id, ...doc.data() });
   });
   return projects;
