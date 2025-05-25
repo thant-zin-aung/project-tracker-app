@@ -5,17 +5,20 @@ import './App.css'
 import { SideBar } from './components/SideBar.jsx'
 import { HomePage } from './components/Pages/HomePage/HomePage.jsx'
 import { NewTaskForm } from './components/NewTaskForm.jsx';
+import { NewFormContainer } from './components/NewFormContainer.jsx';
 
 function App() {
-  const [showNewTaskForm, setShowNewTaskForm] = useState(false);
-  let handleCloseNewTaskForm = () => {
-        setShowNewTaskForm(prev => !prev);
+  const [showNewFormContainer, setShowNewFormContainer] = useState(false);
+  let handleCloseNewFormContainer = () => {
+        setShowNewFormContainer(prev => !prev);
   }
   return (
     <main>
       <SideBar />
-      <HomePage onClickNewTask={handleCloseNewTaskForm}/>
-      <NewTaskForm isShowNewTaskForm={showNewTaskForm} onClickClose={handleCloseNewTaskForm}/>
+      <HomePage onClickNewTask={handleCloseNewFormContainer}/>
+      <NewFormContainer isShowNewFormContainer={showNewFormContainer} onClickClose={handleCloseNewFormContainer}>
+        <NewTaskForm />
+      </NewFormContainer>
     </main>  
   )
 }

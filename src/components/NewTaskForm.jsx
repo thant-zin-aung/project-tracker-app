@@ -1,44 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
-const NewTaskFormContainer = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: ${({$isShow}) => $isShow ? 'flex' : 'none'};
-    justify-content: center;
-    align-items: center;
-`;
-const TaskFormContainer = styled.div`
-    width: 600px;
-    height: max-content;
-    padding: 5px;
-    background-color: white;
-    border-radius: 15px;
-    position: relative;
-
-    & .close-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 22px;
-        /* color: #333cad; */
-        cursor: pointer;
-        opacity: 0.5;
-        transition: all 0.3s ease;
-    }
-    & .close-icon:hover {
-        opacity: 1;
-        font-size: 25px;
-        color: red;
-    }
-`;
 const TaskForm = styled.div`
     width: 100%;
     padding: 30px;
@@ -95,6 +58,7 @@ const TaskForm = styled.div`
         border-radius: 3px;
         padding-left: 10px;
         transition: border 0.3s ease;
+        font-size: 12px;
     }
     & .input-field-container input:hover,textarea:hover {
         border-color: #acb0f9;
@@ -157,12 +121,9 @@ const TaskForm = styled.div`
 
 `;
 
-export function NewTaskForm({isShowNewTaskForm, onClickClose}) {
+export function NewTaskForm() {
     return (
-        <NewTaskFormContainer $isShow={isShowNewTaskForm}>
-            <TaskFormContainer>
-                <FontAwesomeIcon icon={faCircleXmark} className='close-icon' onClick={onClickClose}/>
-                <TaskForm>
+        <TaskForm>
                     <h2 className="form-title">Create New Task</h2>
                     <p className="form-sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus magnam accusantium omnis saepe sed aperiam minima ipsum illo, facilis dolores at voluptatibus unde pariatur quasi nostrum, nam autem, architecto quia.</p>
                     <div className="input-field-container">
@@ -196,9 +157,6 @@ export function NewTaskForm({isShowNewTaskForm, onClickClose}) {
                         </div>
                         <button className="add-button">ADD</button>
                     </div>
-                </TaskForm>    
-            </TaskFormContainer>
-            
-        </NewTaskFormContainer>
+        </TaskForm>    
     )
 }
