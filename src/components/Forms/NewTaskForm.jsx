@@ -124,39 +124,39 @@ const TaskForm = styled.div`
 export function NewTaskForm() {
     return (
         <TaskForm>
-                    <h2 className="form-title">Create New Task</h2>
-                    <p className="form-sub-title">Add a new task by entering its title, selecting a priority status (Important, Default, or Irrelevant), setting a due date, and providing details. You can also upload an image to support the task. Click Add button to save and track it within your project.</p>
-                    <div className="input-field-container">
-                        <div className="first-row-container">
-                            <div>
-                                <label htmlFor="task-title">Title <span className='star-icon'>*</span></label>
-                                <input type="text" id='task-title' spellCheck="false"/>
-                            </div>
-                            <div>
-                                <label htmlFor="task-status">Status <span className='star-icon'>*</span></label>
-                                <input type="text" id='task-status' spellCheck="false" />
-                            </div>
-                        </div>
-                        <div className='date-container'>
-                            <label htmlFor="task-due-date">Finish Due Date <span className='star-icon'>*</span></label>
-                            <input type="date" name="due-date" id="task-due-date" />
-                        </div>
-                        <div className='desc-container'>
-                            <label htmlFor="task-desc">Description <span className='star-icon'>*</span></label>
-                            <br />
-                            <textarea name="" id="task-desc"  spellCheck="false" ></textarea>
-                        </div>
-                        <div className="image-container">
-                            <label htmlFor="">Image</label>
-                            <br />
-                            <label htmlFor="task-image" className='task-image-label'>
-                                <FontAwesomeIcon icon={faCloudArrowUp} className='upload-cloud-icon' />
-                                <div className="hint-text"><u>Browse</u> Files to upload</div>
-                            </label>
-                            <input type="file" name="task-image" id="task-image" />
-                        </div>
-                        <button className="add-button">ADD</button>
+            <h2 className="form-title">Create New Task</h2>
+            <p className="form-sub-title">Add a new task by entering its title, selecting a priority status (Important, Default, or Irrelevant), setting a due date, and providing details. You can also upload an image to support the task. Click Add button to save and track it within your project.</p>
+            <div className="input-field-container">
+                <div className="first-row-container">
+                    <div>
+                        <label htmlFor="task-title">Title <span className='star-icon'>*</span></label>
+                        <input type="text" id='task-title' spellCheck="false"/>
                     </div>
+                    <div>
+                        <label htmlFor="task-status">Status <span className='star-icon'>*</span></label>
+                        <input type="text" id='task-status' spellCheck="false" />
+                    </div>
+                </div>
+                <div className='date-container'>
+                    <label htmlFor="task-due-date">Finish Due Date <span className='star-icon'>*</span></label>
+                    <input type="date" name="due-date" id="task-due-date" />
+                </div>
+                <div className='desc-container'>
+                    <label htmlFor="task-desc">Description <span className='star-icon'>*</span></label>
+                    <br />
+                    <textarea name="" id="task-desc"  spellCheck="false" ></textarea>
+                </div>
+                <div className="image-container">
+                    <label htmlFor="">Image</label>
+                    <br />
+                    <label htmlFor="task-image" className='task-image-label'>
+                        <FontAwesomeIcon icon={faCloudArrowUp} className='upload-cloud-icon' />
+                        <div className="hint-text"><u>Browse</u> Files to upload</div>
+                    </label>
+                    <input type="file" name="task-image" id="task-image" />
+                </div>
+                <button className="add-button">ADD</button>
+            </div>
         </TaskForm>    
     )
 }

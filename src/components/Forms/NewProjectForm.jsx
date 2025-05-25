@@ -72,15 +72,15 @@ const ProjectForm = styled.div`
 export function NewProjectForm() {
     return (
         <ProjectForm>
-                    <h2 className="form-title">Create New Project</h2>
-                    <p className="form-sub-title">Use this form to start a new project within your Project Tracker App. Give your project a clear and descriptive name that reflects the overall goal or initiative you want to manage. This name will help your team quickly identify the project in dashboards and task lists.</p>
-                    <div className="input-field-container">
-                        <div>
-                                <label htmlFor="project-name">Project Name <span className='star-icon'>*</span></label>
-                                <input type="text" id='project-name' spellCheck="false"/>
-                        </div>
-                        <button className="add-button">ADD</button>
-                    </div>
+            <h2 className="form-title">Create New Project</h2>
+            <p className="form-sub-title">Use this form to start a new project within your Project Tracker App. Give your project a clear and descriptive name that reflects the overall goal or initiative you want to manage. This name will help your team quickly identify the project in dashboards and task lists.</p>
+            <div className="input-field-container">
+                <div>
+                    <label htmlFor="project-name">Project Name <span className='star-icon'>*</span></label>
+                    <input type="text" id='project-name' spellCheck="false"/>
+                </div>
+                <button className="add-button">ADD</button>
+            </div>
         </ProjectForm>    
     )
 }
