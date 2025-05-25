@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { db, auth } from "../../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
 import styled from "styled-components";
 
 const ProjectForm = styled.div`
@@ -76,9 +81,48 @@ const ProjectForm = styled.div`
 `;
 
 export function NewProjectForm({ onClickClose }) {
-  function handleOnClickAdd() {
-    onClickClose();
-  }
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [contributors, setContributors] = useState(""); // Comma-separated
+
+  const handleOnClickAdd = async () => {
+    if (!name.trim() || !description.trim()) {
+      alert("Please enter both project name and description.");
+      return;
+    }
+
+    const user = auth.currentUser;
+    if (!user) {
+      alert("You need to log in first.");
+      return;
+    }
+
+    const ownerId = user.uid;
+    const contributorsArray = contributors
+      .split(",")
+      .map((id) => id.trim())
+      .filter((id) => id.length > 0);
+
+    if (!contributorsArray.includes(ownerId)) {
+      contributorsArray.push(ownerId);
+    }
+
+    try {
+      await addDoc(collection(db, "projects"), {
+        name,
+        description,
+        ownerId,
+        contributors: contributorsArray,
+        createdAt: serverTimestamp(),
+      });
+      alert("Project created successfully!");
+      onClickClose();
+    } catch (error) {
+      console.error("Error adding project:", error);
+      alert("Failed to create project: " + error.message);
+    }
+  };
+
   return (
     <ProjectForm>
       <h2 className="form-title">Create New Project</h2>
@@ -93,14 +137,37 @@ export function NewProjectForm({ onClickClose }) {
           <label htmlFor="project-name">
             Project Name <span className="star-icon">*</span>
           </label>
-          <input type="text" id="project-name" spellCheck="false" />
+          <input
+            type="text"
+            id="project-name"
+            spellCheck="false"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="desc-container">
           <label htmlFor="task-desc">
             Description <span className="star-icon">*</span>
           </label>
           <br />
-          <textarea name="" id="task-desc" spellCheck="false"></textarea>
+          <textarea
+            id="task-desc"
+            spellCheck="false"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="contributors">
+            Contributors (comma-separated IDs)
+          </label>
+          <input
+            type="text"
+            id="contributors"
+            spellCheck="false"
+            value={contributors}
+            onChange={(e) => setContributors(e.target.value)}
+          />
         </div>
         <button className="add-button" onClick={handleOnClickAdd}>
           ADD
