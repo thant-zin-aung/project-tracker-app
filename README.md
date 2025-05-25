@@ -1,4 +1,4 @@
-# 📝 To-Do List App  
+# 📅 Project Tracker App
 
 A powerful and intuitive **project-based task management app** built with **React** — designed for organizing, assigning, and tracking tasks within collaborative teams. Unlike a basic to-do list, this application emphasizes structured project workflows, allowing users to break down complex goals into actionable tasks such as “UI design,” “backend logic,” and more.
 
