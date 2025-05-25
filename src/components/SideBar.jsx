@@ -30,6 +30,7 @@ const Nav = styled.nav`
         border: none;
         border-radius: 100%;
         font-size: 17px;
+        cursor: pointer;
     }
     & .list-item {
         display: flex;
@@ -77,12 +78,12 @@ const Nav = styled.nav`
 `;
 
 
-export function SideBar(props) {
+export function SideBar({onClickNewTask, clickableButtons}) {
     return (
         <Nav>
             <div className="header-container">
                 <h1>Projects</h1>
-                <button className="add-project-button">
+                <button className="add-project-button" onClick={() => onClickNewTask(clickableButtons.NEW_PROJECT)}>
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
             </div>
