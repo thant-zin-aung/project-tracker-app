@@ -121,7 +121,7 @@ const TaskForm = styled.div`
 
 `;
 
-export function NewTaskForm() {
+export function NewTaskForm({onClickClose}) {
     return (
         <TaskForm>
             <h2 className="form-title">Create New Task</h2>
