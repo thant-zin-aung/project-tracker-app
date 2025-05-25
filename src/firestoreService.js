@@ -7,6 +7,7 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
   updateDoc,
   doc,
   deleteDoc,
@@ -20,25 +21,21 @@ export async function createProject(
   ownerId,
   contributors = []
 ) {
-  try {
-    const docRef = await addDoc(collection(db, "projects"), {
-      name,
-      description,
-      ownerId,
-      contributors,
-      createdAt: serverTimestamp(),
-    });
-    return docRef.id;
-  } catch (e) {
-    console.error("Error adding project:", e);
-    throw e;
-  }
+  const docRef = await addDoc(collection(db, "projects"), {
+    name,
+    description,
+    ownerId,
+    contributors,
+    createdAt: serverTimestamp(),
+  });
+  return docRef.id;
 }
 
 // 2. Get all projects
 export async function getAllProjects() {
   const projectsRef = collection(db, "projects");
-  const querySnapshot = await getDocs(projectsRef);
+  const q = query(projectsRef, orderBy("createdAt", "desc"));
+  const querySnapshot = await getDocs(q);
   const projects = [];
   querySnapshot.forEach((doc) => {
     projects.push({ id: doc.id, ...doc.data() });
@@ -48,7 +45,11 @@ export async function getAllProjects() {
 
 export async function getProjectsByOwner(userId) {
   const projectsRef = collection(db, "projects");
-  const q = query(projectsRef, where("ownerId", "==", userId));
+  const q = query(
+    projectsRef,
+    where("ownerId", "==", userId),
+    orderBy("createdAt", "desc")
+  );
   const querySnapshot = await getDocs(q);
   const projects = [];
   querySnapshot.forEach((doc) => {

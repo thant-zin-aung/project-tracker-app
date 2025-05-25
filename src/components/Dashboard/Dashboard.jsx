@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { getProjectsByOwner } from "../../firestoreService";
+import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
 import { SideBar } from "../SideBar.jsx";
 import { HomePage } from "../Pages/HomePage/HomePage.jsx";
@@ -15,8 +16,25 @@ let childForm;
 
 export default function Dashboard() {
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  useEffect(() => {
+    const fetchMyProjects = async () => {
+      try {
+        const user = auth.currentUser;
+        const myProjects = await getProjectsByOwner(user.uid);
+        setProjects(myProjects);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchMyProjects();
+  }, [refreshTrigger]);
+
+  const refreshProjects = () => setRefreshTrigger((prev) => prev + 1);
+
   let handleCloseNewFormContainer = (clickedButton) => {
-    //   childForm = handleClickedButton(clickedButton);
     switch (clickedButton) {
       case buttonName.NEW_PROJECT:
         childForm = (
@@ -24,6 +42,7 @@ export default function Dashboard() {
             onClickClose={() =>
               handleCloseNewFormContainer(buttonName.NEW_PROJECT)
             }
+            refreshProjects={refreshProjects}
           />
         );
         break;
@@ -45,9 +64,11 @@ export default function Dashboard() {
 
   return (
     <main>
+      {console.log(refreshTrigger)}
       <SideBar
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
+        projects={projects}
       />
       <HomePage
         onClickNewTask={handleCloseNewFormContainer}

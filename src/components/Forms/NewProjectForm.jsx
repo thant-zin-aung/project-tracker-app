@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { db, auth } from "../../firebase";
+import { createProject } from "../../firestoreService";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -80,7 +81,7 @@ const ProjectForm = styled.div`
   }
 `;
 
-export function NewProjectForm({ onClickClose }) {
+export function NewProjectForm({ onClickClose, refreshProjects }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [contributors, setContributors] = useState(""); // Comma-separated
@@ -108,14 +109,9 @@ export function NewProjectForm({ onClickClose }) {
     }
 
     try {
-      await addDoc(collection(db, "projects"), {
-        name,
-        description,
-        ownerId,
-        contributors: contributorsArray,
-        createdAt: serverTimestamp(),
-      });
+      await createProject(name, description, ownerId, contributorsArray);
       alert("Project created successfully!");
+      refreshProjects();
       onClickClose();
     } catch (error) {
       console.error("Error adding project:", error);

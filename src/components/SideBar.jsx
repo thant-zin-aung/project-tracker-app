@@ -1,6 +1,5 @@
 import { db, auth } from "../firebase";
-import { getProjectsByOwner } from "../firestoreService";
-import { useEffect, useState } from "react";
+
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -116,22 +115,7 @@ const Nav = styled.nav`
   }
 `;
 
-export function SideBar({ onClickNewProject, clickableButtons }) {
-  const [projects, setProjects] = useState([]);
-  console.log("Projects:", projects);
-  useEffect(() => {
-    const fetchMyProjects = async () => {
-      try {
-        const user = auth.currentUser;
-        const myProjects = await getProjectsByOwner(user.uid);
-        setProjects(myProjects);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-    fetchMyProjects();
-  }, []);
-
+export function SideBar({ onClickNewProject, clickableButtons, projects }) {
   return (
     <Nav>
       <div className="header-container">
