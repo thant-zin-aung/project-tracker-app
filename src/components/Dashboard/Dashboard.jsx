@@ -64,7 +64,6 @@ export default function Dashboard() {
 
   return (
     <main>
-      {console.log(refreshTrigger)}
       <SideBar
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}

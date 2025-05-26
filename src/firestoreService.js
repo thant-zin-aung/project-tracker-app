@@ -54,7 +54,6 @@ export async function getProjectsByOwner(userId) {
   const projects = [];
   querySnapshot.forEach((doc) => {
     projects.push({ id: doc.id, ...doc.data() });
-    console.log("doc data: " + projects[0].id);
   });
   return projects;
 }

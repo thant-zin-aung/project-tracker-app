@@ -1,5 +1,4 @@
-import { db, auth } from "../firebase";
-
+import { useState } from "react";
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -71,13 +70,10 @@ const Nav = styled.nav`
     font-size: 12px;
     transition: transform 0.5s ease;
   }
-  & .list-item:hover .sub-list {
+  /* & .list-item:hover .sub-list {
     margin-top: 30px;
     max-height: 250px;
-  }
-  & .list-item:hover .arrow-icon {
-    transform: rotate(90deg);
-  }
+  } */
   & .list-item .sub-list {
     /* margin-top: 20px; */
     padding-left: 30px;
@@ -86,6 +82,13 @@ const Nav = styled.nav`
     transition: all 0.5s ease;
     list-style-type: none;
     overflow-y: auto;
+  }
+  & .list-item.active .sub-list {
+    margin-top: 30px;
+    max-height: 250px;
+  }
+  & .list-item.active .arrow-icon {
+    transform: rotate(90deg);
   }
   & .list-item .sub-list li {
     padding: 10px 0;
@@ -138,8 +141,18 @@ export function SideBar({ onClickNewProject, clickableButtons, projects }) {
 }
 
 function ListItem({ icon, title, projects }) {
+  const [isTabActive, setIsTabActive] = useState(false);
+
+  const handleSubItemClick = (project, e) => {
+    e.stopPropagation(); // Stop event from bubbling up to parent
+    console.log(`Clicked on sub-item: ${project.name}`);
+  };
+
   return (
-    <li className="list-item">
+    <li
+      className={isTabActive ? "list-item active" : "list-item"}
+      onClick={() => setIsTabActive((prev) => !prev)}
+    >
       <div className="left-container">
         <div>
           <FontAwesomeIcon icon={icon} className="item-icon" />
@@ -151,7 +164,11 @@ function ListItem({ icon, title, projects }) {
       </div>
       <ul className="sub-list">
         {projects.map((project) => (
-          <li key={project.id} className="sub-list-item">
+          <li
+            key={project.id}
+            className="sub-list-item"
+            onClick={(e) => handleSubItemClick(project, e)}
+          >
             {project.name}
           </li>
         ))}
