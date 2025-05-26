@@ -14,6 +14,7 @@ const Nav = styled.nav`
   height: 100vh;
   background-color: rgb(255, 255, 255);
   padding: 30px;
+  overflow-y: auto;
   // box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
   & .header-container {
@@ -97,6 +98,24 @@ const Nav = styled.nav`
   }
   & .list-item .sub-list li:hover {
     opacity: 1;
+  }
+
+  /* For Webkit-based browsers */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bbbef0;
+    border: 1px solid #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #5d65cd;
   }
 
   /* For Webkit-based browsers */
