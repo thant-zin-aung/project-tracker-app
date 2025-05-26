@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
 
   useEffect(() => {
     const fetchMyProjects = async () => {
@@ -68,6 +69,9 @@ export default function Dashboard() {
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
         projects={projects}
+        onChangeSelectedProjectId={(projectId) => {
+          setSelectedProjectId(projectId);
+        }}
       />
       <HomePage
         onClickNewTask={handleCloseNewFormContainer}

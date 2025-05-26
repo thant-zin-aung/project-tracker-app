@@ -137,7 +137,12 @@ const Nav = styled.nav`
   }
 `;
 
-export function SideBar({ onClickNewProject, clickableButtons, projects }) {
+export function SideBar({
+  onClickNewProject,
+  clickableButtons,
+  projects,
+  onChangeSelectedProjectId,
+}) {
   return (
     <Nav>
       <div className="header-container">
@@ -150,21 +155,42 @@ export function SideBar({ onClickNewProject, clickableButtons, projects }) {
         </button>
       </div>
       <ul>
-        <ListItem icon={faBox} title="All projects" projects={projects} />
-        <ListItem icon={faPaperclip} title="Pinned" projects={projects} />
-        <ListItem icon={faClock} title="In process" projects={projects} />
-        <ListItem icon={faCircleCheck} title="Done" projects={projects} />
+        <ListItem
+          icon={faBox}
+          title="All projects"
+          projects={projects}
+          onChangeSelectedProjectId={onChangeSelectedProjectId}
+        />
+        <ListItem
+          icon={faPaperclip}
+          title="Pinned"
+          projects={projects}
+          onChangeSelectedProjectId={onChangeSelectedProjectId}
+        />
+        <ListItem
+          icon={faClock}
+          title="In process"
+          projects={projects}
+          onChangeSelectedProjectId={onChangeSelectedProjectId}
+        />
+        <ListItem
+          icon={faCircleCheck}
+          title="Done"
+          projects={projects}
+          onChangeSelectedProjectId={onChangeSelectedProjectId}
+        />
       </ul>
     </Nav>
   );
 }
 
-function ListItem({ icon, title, projects }) {
+// ListItem component
+function ListItem({ icon, title, projects, onChangeSelectedProjectId }) {
   const [isTabActive, setIsTabActive] = useState(false);
 
   const handleSubItemClick = (project, e) => {
     e.stopPropagation(); // Stop event from bubbling up to parent
-    console.log(`Clicked on sub-item: ${project.name}`);
+    onChangeSelectedProjectId(project.id);
   };
 
   return (
@@ -191,18 +217,6 @@ function ListItem({ icon, title, projects }) {
             {project.name}
           </li>
         ))}
-        {/* <li className="sub-list-item">Item 1</li>
-        <li className="sub-list-item">Item 2</li>
-        <li className="sub-list-item">Item 3</li>
-        <li className="sub-list-item">Item 4</li>
-        <li className="sub-list-item">Item 1</li>
-        <li className="sub-list-item">Item 2</li>
-        <li className="sub-list-item">Item 3</li>
-        <li className="sub-list-item">Item 4</li>
-        <li className="sub-list-item">Item 1</li>
-        <li className="sub-list-item">Item 2</li>
-        <li className="sub-list-item">Item 3</li>
-        <li className="sub-list-item">Item 4</li> */}
       </ul>
     </li>
   );
