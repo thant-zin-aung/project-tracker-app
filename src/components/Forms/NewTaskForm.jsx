@@ -1,6 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { uploadAndGetImageUrl, createTask } from "../../firestoreService";
 
 const TaskForm = styled.div`
   width: 100%;
@@ -96,7 +98,15 @@ const TaskForm = styled.div`
     flex-direction: column;
     justify-content: center;
     opacity: 1;
+    position: relative;
     cursor: pointer;
+  }
+  & .image-container .task-image-label img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: ${({ preview }) => (preview ? "block" : "none")};
   }
   & .image-container .task-image-label .upload-cloud-icon {
     font-size: 80px;
@@ -133,9 +143,28 @@ const TaskForm = styled.div`
   }
 `;
 
-export function NewTaskForm({ onClickClose }) {
+export function NewTaskForm({ onClickClose, projectId }) {
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskStatus, setTaskStatus] = useState("default");
+  const [dueDate, setDueDate] = useState("");
+  const [taskDesc, setTaskDesc] = useState("");
+  const [taskImageFile, setTaskImageFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  async function handleOnClickAdd() {
+    await createTask(projectId, taskTitle, taskDesc, taskStatus, dueDate);
+    onClickClose();
+  }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setTaskImageFile(file);
+      setPreview(imageUrl);
+    }
+  };
   return (
-    <TaskForm>
+    <TaskForm preview={preview}>
       <h2 className="form-title">Create New Task</h2>
       <p className="form-sub-title">
         Add a new task by entering its title, selecting a priority status
@@ -149,13 +178,23 @@ export function NewTaskForm({ onClickClose }) {
             <label htmlFor="task-title">
               Title <span className="star-icon">*</span>
             </label>
-            <input type="text" id="task-title" spellCheck="false" />
+            <input
+              type="text"
+              id="task-title"
+              spellCheck="false"
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
+            />
           </div>
           <div>
             <label htmlFor="task-status">
               Status <span className="star-icon">*</span>
             </label>
-            <select name="task-status" id="task-status">
+            <select
+              name="task-status"
+              id="task-status"
+              onChange={(e) => setTaskStatus(e.target.value)}
+            >
               <option value="important">---</option>
               <option value="important">Important</option>
               <option value="irrelevant">Irrelevant</option>
@@ -167,14 +206,24 @@ export function NewTaskForm({ onClickClose }) {
           <label htmlFor="task-due-date">
             Finish Due Date <span className="star-icon">*</span>
           </label>
-          <input type="date" name="due-date" id="task-due-date" />
+          <input
+            type="date"
+            name="due-date"
+            id="task-due-date"
+            onChange={(e) => setDueDate(e.target.value)}
+          />
         </div>
         <div className="desc-container">
           <label htmlFor="task-desc">
             Description <span className="star-icon">*</span>
           </label>
           <br />
-          <textarea name="" id="task-desc" spellCheck="false"></textarea>
+          <textarea
+            name=""
+            id="task-desc"
+            spellCheck="false"
+            onChange={(e) => setTaskDesc(e.target.value)}
+          ></textarea>
         </div>
         <div className="image-container">
           <label htmlFor="">Image</label>
@@ -187,10 +236,18 @@ export function NewTaskForm({ onClickClose }) {
             <div className="hint-text">
               <u>Browse</u> Files to upload
             </div>
+            <img src={preview} alt="Task Image" />
           </label>
-          <input type="file" name="task-image" id="task-image" />
+          <input
+            type="file"
+            name="task-image"
+            id="task-image"
+            onChange={handleImageChange}
+          />
         </div>
-        <button className="add-button">ADD</button>
+        <button className="add-button" onClick={handleOnClickAdd}>
+          ADD
+        </button>
       </div>
     </TaskForm>
   );

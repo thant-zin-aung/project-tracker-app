@@ -53,6 +53,7 @@ export default function Dashboard() {
             onClickClose={() =>
               handleCloseNewFormContainer(buttonName.NEW_TASK)
             }
+            projectId={selectedProjectId}
           />
         );
         break;

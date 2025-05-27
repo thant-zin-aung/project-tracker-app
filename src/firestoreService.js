@@ -1,6 +1,6 @@
 // firestoreService.js
 
-import { db } from "./firebase";
+import { db, storage } from "./firebase";
 import {
   collection,
   addDoc,
@@ -13,6 +13,7 @@ import {
   deleteDoc,
   serverTimestamp,
 } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // 1. Create a project
 export async function createProject(
@@ -80,4 +81,44 @@ export async function updateProject(projectId, updates) {
 export async function deleteProject(projectId) {
   const projectDoc = doc(db, "projects", projectId);
   await deleteDoc(projectDoc);
+}
+
+export async function uploadAndGetImageUrl(file) {
+  let imageUrl = null;
+  if (file) {
+    const storageRef = ref(storage, `tasks/${Date.now()}_${file.name}`);
+    await uploadBytes(storageRef, file);
+    imageUrl = await getDownloadURL(storageRef);
+  } else {
+    console.warn("No file provided for upload.");
+  }
+  return imageUrl;
+}
+
+export async function createTask(
+  projectId,
+  name,
+  description,
+  status = "default",
+  dueDate = null,
+  imageUrl = null
+) {
+  try {
+    const taskData = {
+      projectId,
+      name,
+      description,
+      status,
+      dueDate: dueDate ? dueDate : null,
+      imageUrl: imageUrl || null,
+      createdAt: serverTimestamp(),
+    };
+
+    const docRef = await addDoc(collection(db, "tasks"), taskData);
+    alert("New task added successfully!");
+    return docRef.id;
+  } catch (e) {
+    alert("Error adding task:", e);
+    throw e;
+  }
 }
