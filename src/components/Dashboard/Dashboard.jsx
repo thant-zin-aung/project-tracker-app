@@ -69,6 +69,7 @@ export default function Dashboard() {
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
         projects={projects}
+        selectedProjectId={selectedProjectId}
         onChangeSelectedProjectId={(projectId) => {
           setSelectedProjectId(projectId);
         }}

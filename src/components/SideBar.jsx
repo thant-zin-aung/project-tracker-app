@@ -46,6 +46,7 @@ const Nav = styled.nav`
     padding: 10px 0;
     cursor: pointer;
     margin-bottom: 20px;
+    user-select: none;
   }
   & .list-item .left-container {
     display: flex;
@@ -97,6 +98,9 @@ const Nav = styled.nav`
     opacity: 0.4;
   }
   & .list-item .sub-list li:hover {
+    opacity: 0.6;
+  }
+  & .list-item .sub-list li.active {
     opacity: 1;
   }
 
@@ -141,6 +145,7 @@ export function SideBar({
   onClickNewProject,
   clickableButtons,
   projects,
+  selectedProjectId,
   onChangeSelectedProjectId,
 }) {
   return (
@@ -159,24 +164,28 @@ export function SideBar({
           icon={faBox}
           title="All projects"
           projects={projects}
+          selectedProjectId={selectedProjectId}
           onChangeSelectedProjectId={onChangeSelectedProjectId}
         />
         <ListItem
           icon={faPaperclip}
           title="Pinned"
           projects={projects}
+          selectedProjectId={selectedProjectId}
           onChangeSelectedProjectId={onChangeSelectedProjectId}
         />
         <ListItem
           icon={faClock}
           title="In process"
           projects={projects}
+          selectedProjectId={selectedProjectId}
           onChangeSelectedProjectId={onChangeSelectedProjectId}
         />
         <ListItem
           icon={faCircleCheck}
           title="Done"
           projects={projects}
+          selectedProjectId={selectedProjectId}
           onChangeSelectedProjectId={onChangeSelectedProjectId}
         />
       </ul>
@@ -185,7 +194,13 @@ export function SideBar({
 }
 
 // ListItem component
-function ListItem({ icon, title, projects, onChangeSelectedProjectId }) {
+function ListItem({
+  icon,
+  title,
+  projects,
+  selectedProjectId,
+  onChangeSelectedProjectId,
+}) {
   const [isTabActive, setIsTabActive] = useState(false);
 
   const handleSubItemClick = (project, e) => {
@@ -211,7 +226,11 @@ function ListItem({ icon, title, projects, onChangeSelectedProjectId }) {
         {projects.map((project) => (
           <li
             key={project.id}
-            className="sub-list-item"
+            className={
+              selectedProjectId === project.id
+                ? "sub-list-item active"
+                : "sub-list-item"
+            }
             onClick={(e) => handleSubItemClick(project, e)}
           >
             {project.name}
