@@ -1,6 +1,6 @@
 // firestoreService.js
 
-import { db, storage } from "./firebase";
+import { db } from "./firebase";
 import {
   collection,
   addDoc,
