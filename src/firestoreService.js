@@ -13,7 +13,6 @@ import {
   deleteDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // 1. Create a project
 export async function createProject(
@@ -81,18 +80,6 @@ export async function updateProject(projectId, updates) {
 export async function deleteProject(projectId) {
   const projectDoc = doc(db, "projects", projectId);
   await deleteDoc(projectDoc);
-}
-
-export async function uploadAndGetImageUrl(file) {
-  let imageUrl = null;
-  if (file) {
-    const storageRef = ref(storage, `tasks/${Date.now()}_${file.name}`);
-    await uploadBytes(storageRef, file);
-    imageUrl = await getDownloadURL(storageRef);
-  } else {
-    console.warn("No file provided for upload.");
-  }
-  return imageUrl;
 }
 
 export async function createTask(

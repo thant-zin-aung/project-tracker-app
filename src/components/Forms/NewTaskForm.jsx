@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { uploadAndGetImageUrl, createTask } from "../../firestoreService";
+import { createTask } from "../../firestoreService";
 
 const TaskForm = styled.div`
   width: 100%;
