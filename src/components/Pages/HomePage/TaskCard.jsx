@@ -84,6 +84,8 @@ const Card = styled.div`
   }
   & .progress-container .current-progress {
     height: 100%;
+    width: 30%; // change dynamically
+    background-color: ${({ $statusColor }) => $statusColor};
   }
   & .bottom-wrapper {
     display: flex;
@@ -143,13 +145,7 @@ export function TaskCard({ task, taskImage }) {
         <span className="text">Due in 3 days</span>
       </div>
       <div className="progress-container">
-        <div
-          className="current-progress"
-          style={{
-            width: "30%",
-            backgroundColor: "#ffc260",
-          }}
-        ></div>
+        <div className="current-progress"></div>
       </div>
       <div className="bottom-wrapper">
         <div className="contributor-container">
