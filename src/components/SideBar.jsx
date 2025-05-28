@@ -15,6 +15,8 @@ const Nav = styled.nav`
   background-color: rgb(255, 255, 255);
   padding: 30px;
   overflow-y: auto;
+  position: sticky;
+  top: 0;
   // box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
   & .header-container {

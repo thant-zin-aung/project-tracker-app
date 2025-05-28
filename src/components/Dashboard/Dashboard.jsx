@@ -9,6 +9,7 @@ import { HomePage } from "../Pages/HomePage/HomePage.jsx";
 import { NewTaskForm } from "../Forms/NewTaskForm.jsx";
 import { NewFormContainer } from "../Forms/NewFormContainer.jsx";
 import { NewProjectForm } from "../Forms/NewProjectForm.jsx";
+import { TaskDetailPage } from "../Pages/TaskDetailPage/TaskDetailPage.jsx";
 
 const buttonName = {
   NEW_PROJECT: "new-project",
@@ -96,11 +97,12 @@ export default function Dashboard() {
           setSelectedProjectId(projectId);
         }}
       />
-      <HomePage
+      {/* <HomePage
         onClickNewTask={handleCloseNewFormContainer}
         clickableButtons={buttonName}
         tasks={tasks}
-      />
+      /> */}
+      <TaskDetailPage />
       <NewFormContainer
         isShowNewFormContainer={showNewFormContainer}
         onClickClose={handleCloseNewFormContainer}
