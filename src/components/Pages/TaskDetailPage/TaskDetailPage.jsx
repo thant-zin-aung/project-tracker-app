@@ -20,7 +20,8 @@ const Container = styled.div`
   & .right-wrapper {
     flex: 1;
   }
-  .task-outline-container {
+  .task-outline-container,
+  .profile-container {
     width: 100%;
     height: 120px;
     background-color: white;
@@ -29,6 +30,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
+    margin-bottom: 20px;
   }
   .task-outline-container .left-container {
     height: 100%;
@@ -92,6 +94,63 @@ const Container = styled.div`
     font-size: 13px;
     font-weight: 600;
   }
+
+  .profile-container img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-right: 20px;
+  }
+  .profile-container .left-container {
+    flex: 2;
+    display: flex;
+    align-items: center;
+  }
+  .profile-info-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-info-container h4 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .profile-info-container p {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .profile-info-container p:last-child {
+    margin-bottom: 0;
+  }
+  .profile-container .right-container {
+    border-style: solid;
+    border-color: #bcbcbc;
+    border-width: 0 0 0 1px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70%;
+    padding-left: 50px;
+  }
+  .profile-container .right-container > div {
+    display: flex;
+    font-size: 14px;
+  }
+  .profile-container .right-container > div:first-child {
+    margin-bottom: 15px;
+  }
+  /* .profile-container .right-container > div .left {
+    width: 200px;
+  } */
+  .profile-container .right-container > div .right {
+    width: 100px;
+    text-align: right;
+    font-weight: 500;
+  }
 `;
 
 export function TaskDetailPage() {
@@ -126,6 +185,27 @@ export function TaskDetailPage() {
                 <FontAwesomeIcon icon={faUser} className="user-icon" />{" "}
                 <span>23</span>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="profile-container">
+          <div className="left-container">
+            <img src={userProfileImage} />
+            <div className="profile-info-container">
+              <h4>John Alby</h4>
+              <p>Software Engineer</p>
+              <p>johnalby.dev@gmail.com</p>
+            </div>
+          </div>
+          <div className="right-container">
+            <div>
+              <div className="left">Overall Impact Score : </div>
+              <div className="right">10%</div>
+            </div>
+            <div>
+              <div className="left">Ideal Session Length : </div>
+              <div className="right">120 min</div>
             </div>
           </div>
         </div>
