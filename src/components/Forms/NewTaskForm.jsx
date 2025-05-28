@@ -106,7 +106,7 @@ const TaskForm = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: ${({ preview }) => (preview ? "block" : "none")};
+    display: ${({ $preview }) => ($preview ? "block" : "none")};
   }
   & .image-container .task-image-label .upload-cloud-icon {
     font-size: 80px;
@@ -143,7 +143,7 @@ const TaskForm = styled.div`
   }
 `;
 
-export function NewTaskForm({ onClickClose, projectId }) {
+export function NewTaskForm({ onClickClose, projectId, refreshTasks }) {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskStatus, setTaskStatus] = useState("default");
   const [dueDate, setDueDate] = useState("");
@@ -153,6 +153,7 @@ export function NewTaskForm({ onClickClose, projectId }) {
 
   async function handleOnClickAdd() {
     await createTask(projectId, taskTitle, taskDesc, taskStatus, dueDate);
+    refreshTasks();
     onClickClose();
   }
   const handleImageChange = (e) => {
@@ -164,7 +165,7 @@ export function NewTaskForm({ onClickClose, projectId }) {
     }
   };
   return (
-    <TaskForm preview={preview}>
+    <TaskForm $preview={preview}>
       <h2 className="form-title">Create New Task</h2>
       <p className="form-sub-title">
         Add a new task by entering its title, selecting a priority status

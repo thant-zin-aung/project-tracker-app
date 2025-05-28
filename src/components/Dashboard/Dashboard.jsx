@@ -1,4 +1,7 @@
-import { getProjectsByOwner } from "../../firestoreService";
+import {
+  getProjectsByOwner,
+  getAllTasksByProjectId,
+} from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
 import { SideBar } from "../SideBar.jsx";
@@ -17,23 +20,39 @@ let childForm;
 export default function Dashboard() {
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [taskRefreshTrigger, setTaskRefreshTrigger] = useState(0);
+  const [selectedProjectId, setSelectedProjectId] = useState(0);
 
   useEffect(() => {
-    const fetchMyProjects = async () => {
+    const fetchProjectsAndTasks = async () => {
       try {
         const user = auth.currentUser;
         const myProjects = await getProjectsByOwner(user.uid);
-        setProjects(myProjects);
+        setProjects(() => myProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
-    fetchMyProjects();
+    fetchProjectsAndTasks();
   }, [refreshTrigger]);
 
+  useEffect(() => {
+    if (!selectedProjectId) return;
+    const fetchTasks = async () => {
+      try {
+        const tasks = await getAllTasksByProjectId(selectedProjectId);
+        setTasks(tasks);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchTasks();
+  }, [selectedProjectId, taskRefreshTrigger]);
+
   const refreshProjects = () => setRefreshTrigger((prev) => prev + 1);
+  const refreshTask = () => setTaskRefreshTrigger((prev) => prev + 1);
 
   let handleCloseNewFormContainer = (clickedButton) => {
     switch (clickedButton) {
@@ -54,6 +73,7 @@ export default function Dashboard() {
               handleCloseNewFormContainer(buttonName.NEW_TASK)
             }
             projectId={selectedProjectId}
+            refreshTasks={refreshTask}
           />
         );
         break;
@@ -66,6 +86,7 @@ export default function Dashboard() {
 
   return (
     <main>
+      {console.log("taskRefreshTrigger", taskRefreshTrigger)}
       <SideBar
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
@@ -78,6 +99,7 @@ export default function Dashboard() {
       <HomePage
         onClickNewTask={handleCloseNewFormContainer}
         clickableButtons={buttonName}
+        tasks={tasks}
       />
       <NewFormContainer
         isShowNewFormContainer={showNewFormContainer}

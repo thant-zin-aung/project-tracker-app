@@ -109,3 +109,25 @@ export async function createTask(
     throw e;
   }
 }
+
+export async function getAllTasksByProjectId(projectId) {
+  try {
+    const tasksRef = collection(db, "tasks");
+    const q = query(
+      tasksRef,
+      where("projectId", "==", projectId),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+
+    const tasks = [];
+    querySnapshot.forEach((doc) => {
+      tasks.push({ id: doc.id, ...doc.data() });
+    });
+
+    return tasks;
+  } catch (error) {
+    console.error("Error fetching tasks by projectId:", error);
+    throw error;
+  }
+}
