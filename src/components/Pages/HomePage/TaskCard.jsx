@@ -19,6 +19,13 @@ const Card = styled.div`
   background-color: white;
   border-radius: 8px;
   margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
   & .title-container {
     display: flex;
@@ -76,13 +83,13 @@ const Card = styled.div`
     font-size: 15px;
     margin-right: 7px;
   }
-  & .progress-container {
+  .progress-container {
     width: 100%;
-    height: 3px;
+    height: 2px;
     background-color: #eaeaea;
     margin-bottom: 15px;
   }
-  & .progress-container .current-progress {
+  .progress-container .current-progress {
     height: 100%;
     width: 30%; // change dynamically
     background-color: ${({ $statusColor }) => $statusColor};
@@ -107,12 +114,27 @@ const Card = styled.div`
   }
 `;
 
+function calculateDaysLeft(dueDateString) {
+  const today = new Date();
+  const dueDate = new Date(dueDateString);
+  today.setHours(0, 0, 0, 0);
+  dueDate.setHours(0, 0, 0, 0);
+  const diffTime = dueDate.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
+
 export function TaskCard({ task, taskImage }) {
   const taskStatusColor = {
-    important: "rgb(62, 58, 180)",
-    irrelevant: "rgb(255, 194, 96)",
-    default: "rgb(206, 213, 222)",
+    important: "#3e3ab4",
+    irrelevant: "#ffc260",
+    default: "#ced5de",
   };
+  const calculatedDueDateDays = calculateDaysLeft(task.dueDate);
+  let dueDateLabel =
+    calculatedDueDateDays < 0
+      ? "Overdue"
+      : "Due in " + calculatedDueDateDays + " days";
   return (
     <Card
       $statusColor={taskStatusColor[task.status] || taskStatusColor.default}
@@ -141,8 +163,8 @@ export function TaskCard({ task, taskImage }) {
       </div>
       {taskImage && <img src={taskImage} alt="Task" className="task-image" />}
       <div className="due-day-container">
-        <FontAwesomeIcon icon={faClock} className="clock-icon" />{" "}
-        <span className="text">Due in 3 days</span>
+        <FontAwesomeIcon icon={faClock} className="clock-icon" />
+        <span className="text">{dueDateLabel}</span>
       </div>
       <div className="progress-container">
         <div className="current-progress"></div>
