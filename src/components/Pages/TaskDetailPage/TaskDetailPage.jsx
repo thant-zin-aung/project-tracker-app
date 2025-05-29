@@ -6,8 +6,14 @@ import {
   faPlus,
   faBarsStaggered,
   faCircle,
+  faGear,
+  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import {
+  faTrashCan,
+  faClock,
+  faCirclePause,
+} from "@fortawesome/free-regular-svg-icons";
 import { faHourglass } from "@fortawesome/free-regular-svg-icons";
 import userProfileImage from "../../../assets/img/user-profile.jpg";
 import person1 from "../../../assets/img/person-1.jpg";
@@ -30,6 +36,9 @@ const Container = styled.div`
   }
   & .right-wrapper {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   .task-outline-container,
   .profile-container {
@@ -238,6 +247,126 @@ const Container = styled.div`
   .task-detail-container .task-list-container::-webkit-scrollbar-thumb:hover {
     background-color: #555;
   }
+
+  & .right-wrapper > div,
+  & .right-wrapper > img {
+    border-radius: 20px;
+  }
+  & .focus-mode-container {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  & .focus-mode-container > .title {
+    font-size: 30px;
+    font-weight: 500;
+  }
+  & .focus-mode-container .hint {
+    font-size: 15px;
+    opacity: 0.7;
+  }
+  & .focus-mode-container .time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  & .focus-mode-container .time-container .time {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  & .focus-mode-container .time-container .setting-container {
+    display: flex;
+    align-items: center;
+  }
+  &
+    .focus-mode-container
+    .time-container
+    .setting-container
+    .take-a-break-button {
+    padding: 15px 50px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-right: 20px;
+  }
+  & .focus-mode-container .time-container .setting-container .setting-icon {
+    font-size: 30px;
+    opacity: 0.7;
+  }
+  & .focus-mode-container .auto-break-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  & .focus-mode-container .auto-break-container .left {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  & .focus-mode-container .auto-break-container .left .info-icon {
+    font-size: 18px;
+    opacity: 0.7;
+    margin-left: 10px;
+  }
+  & .focus-mode-container .auto-break-container .right {
+  }
+  & .focus-mode-container .duration-container {
+    width: 100%;
+    padding: 20px 20px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+  & .focus-mode-container .duration-container .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  & .focus-mode-container .duration-container .top > div {
+    width: 50%;
+  }
+  & .focus-mode-container .duration-container .top .title {
+    margin-bottom: 10px;
+  }
+  & .focus-mode-container .duration-container .top .duration {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+    border: 1px solid;
+    border-color: #c7c7c7;
+    padding: 0 10px;
+    border-radius: 10px;
+  }
+  & .focus-mode-container .duration-container .top .duration-icon {
+    opacity: 0.7;
+  }
+  & .focus-mode-container .duration-container .save-button {
+    width: 100%;
+    height: 50px;
+    background-color: #4a54d6;
+    color: white;
+    border: none;
+    font-size: 17px;
+    border-radius: 10px;
+  }
+
+  & .task-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const TaskContainer = styled.div`
@@ -291,6 +420,20 @@ const TaskContainer = styled.div`
 `;
 
 export function TaskDetailPage() {
+  const priorityMap = {
+    high: {
+      text: "high",
+      color: "#fda862",
+    },
+    medium: {
+      text: "medium",
+      color: "#51b3ff",
+    },
+    low: {
+      text: "low",
+      color: "#b16ced",
+    },
+  };
   return (
     <Container>
       <div className="left-wrapper">
@@ -363,57 +506,98 @@ export function TaskDetailPage() {
           </div>
           <div className="task-list-container">
             <Task
-              priority="high"
-              priorityColor="#fda862"
+              priority={priorityMap.high.text}
+              priorityColor={priorityMap.high.color}
               taskGenre="React"
               taskName="Create design system"
             />
             <Task
-              priority="medium"
-              priorityColor="#51b3ff"
+              priority={priorityMap.medium.text}
+              priorityColor={priorityMap.medium.color}
               taskGenre="Dribble"
               taskName="Change prototype"
             />
             <Task
-              priority="low"
-              priorityColor="#b16ced"
+              priority={priorityMap.low.text}
+              priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
             />
             <Task
-              priority="low"
-              priorityColor="#b16ced"
+              priority={priorityMap.low.text}
+              priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
             />
             <Task
-              priority="low"
-              priorityColor="#b16ced"
+              priority={priorityMap.low.text}
+              priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
             />
             <Task
-              priority="low"
-              priorityColor="#b16ced"
+              priority={priorityMap.low.text}
+              priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
             />
             <Task
-              priority="low"
-              priorityColor="#b16ced"
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            />
-            <Task
-              priority="low"
-              priorityColor="#b16ced"
+              priority={priorityMap.low.text}
+              priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
             />
           </div>
         </div>
       </div>
-      <div className="right-wrapper"></div>
+      <div className="right-wrapper">
+        <div className="focus-mode-container">
+          <div className="title">Focus Mode</div>
+          <div className="hint">Stay focused for</div>
+          <div className="time-container">
+            <div className="time">120:00</div>
+            <div className="setting-container">
+              <button className="take-a-break-button">
+                <FontAwesomeIcon icon={faCirclePause} /> Take a Break
+              </button>
+              <FontAwesomeIcon icon={faGear} className="setting-icon" />
+            </div>
+          </div>
+          <div className="auto-break-container">
+            <div className="left">
+              Auto Breaks
+              <FontAwesomeIcon icon={faCircleInfo} className="info-icon" />
+            </div>
+            <div className="right">toggle</div>
+          </div>
+          <div className="duration-container">
+            <div className="top">
+              <div className="left">
+                <div className="title">Focused duration</div>
+                <div className="duration">
+                  <div className="text">120 min</div>
+                  <FontAwesomeIcon icon={faClock} className="duration-icon" />
+                </div>
+              </div>
+              <div className="right">
+                <div className="title">Break duration</div>
+                <div className="duration">
+                  <div className="text">20 min</div>
+                  <FontAwesomeIcon
+                    icon={faHourglass}
+                    className="duration-icon"
+                  />
+                </div>
+              </div>
+            </div>
+            <button className="save-button">Save</button>
+          </div>
+        </div>
+        <img
+          src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          className="task-image"
+        />
+      </div>
     </Container>
   );
 }
