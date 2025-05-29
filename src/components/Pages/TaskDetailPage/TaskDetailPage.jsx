@@ -251,16 +251,20 @@ const Container = styled.div`
   & .right-wrapper > div,
   & .right-wrapper > img {
     border-radius: 20px;
+    overflow: hidden;
   }
   & .focus-mode-container {
     width: 100%;
     height: 100%;
-    background-color: black;
-    color: white;
+    /* background-color: black;
+    color: white; */
+    background: linear-gradient(to left top, #9fe7ff, white 60%);
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    border: 1px solid;
+    border-color: #e0e0e0;
   }
   & .focus-mode-container > .title {
     font-size: 30px;
@@ -594,7 +598,7 @@ export function TaskDetailPage() {
           </div>
         </div>
         <img
-          src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://plus.unsplash.com/premium_photo-1668359407785-ac5dca1de611?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           className="task-image"
         />
       </div>
