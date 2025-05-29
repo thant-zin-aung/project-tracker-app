@@ -1,8 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faHourglass, faSquarePlus } from "@fortawesome/free-regular-svg-icons";
+import {
+  faUser,
+  faPlus,
+  faBarsStaggered,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faHourglass } from "@fortawesome/free-regular-svg-icons";
 import userProfileImage from "../../../assets/img/user-profile.jpg";
 import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
@@ -207,6 +213,60 @@ const Container = styled.div`
   .task-detail-container .title-container .right .add-task-icon {
     opacity: 0.6;
   }
+  .task-detail-container .task-list-container {
+    width: 100%;
+    flex: 1;
+  }
+`;
+
+const TaskContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+  border-bottom: 1px solid;
+  border-bottom-color: #dfdfdf;
+
+  & input {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+  }
+  & label > div:first-child {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 5px;
+  }
+  & label > div:last-child {
+    font-size: 15px;
+  }
+  & label .list-icon {
+    color: grey;
+    margin-right: 5px;
+  }
+  & .left {
+    display: flex;
+    align-items: center;
+  }
+  & .right {
+    display: flex;
+    align-items: center;
+  }
+  & .right .priority {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: ${({ $priorityColor }) => $priorityColor};
+  }
+  & .right .priority-icon {
+    font-size: 8px;
+    margin-right: 5px;
+  }
+  & .right .delete-icon {
+    font-size: 20px;
+    margin-left: 20px;
+  }
 `;
 
 export function TaskDetailPage() {
@@ -275,17 +335,58 @@ export function TaskDetailPage() {
                 Focus Mode
               </button>
               <button className="add-new-task-button">
-                <FontAwesomeIcon
-                  icon={faSquarePlus}
-                  className="add-task-icon"
-                />{" "}
-                Add New Task
+                <FontAwesomeIcon icon={faPlus} className="add-task-icon" /> Add
+                New Task
               </button>
             </div>
+          </div>
+          <div className="task-list-container">
+            <Task
+              priority="high"
+              priorityColor="#fda862"
+              taskGenre="React"
+              taskName="Create design system"
+            />
+            <Task
+              priority="medium"
+              priorityColor="#51b3ff"
+              taskGenre="Dribble"
+              taskName="Change prototype"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
+            />
           </div>
         </div>
       </div>
       <div className="right-wrapper"></div>
     </Container>
+  );
+}
+
+function Task({ priority, priorityColor, taskGenre, taskName }) {
+  return (
+    <TaskContainer $priorityColor={priorityColor}>
+      <div className="left">
+        <input type="checkbox" />
+        <label htmlFor="">
+          <div>
+            <FontAwesomeIcon icon={faBarsStaggered} className="list-icon" />
+            <span>{taskGenre}</span>
+          </div>
+          <div>{taskName}</div>
+        </label>
+      </div>
+      <div className="right">
+        <div className="priority">
+          <FontAwesomeIcon icon={faCircle} className="priority-icon" />
+          {priority}
+        </div>
+        <FontAwesomeIcon icon={faTrashCan} className="delete-icon" />
+      </div>
+    </TaskContainer>
   );
 }
