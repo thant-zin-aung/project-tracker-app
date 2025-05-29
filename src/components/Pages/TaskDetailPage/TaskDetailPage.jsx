@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHourglass, faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import userProfileImage from "../../../assets/img/user-profile.jpg";
 import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
@@ -10,12 +11,16 @@ import person4 from "../../../assets/img/person-4.jpg";
 
 const Container = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   gap: 20px;
   padding: 20px;
 
   & .left-wrapper {
     flex: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   & .right-wrapper {
     flex: 1;
@@ -151,6 +156,57 @@ const Container = styled.div`
     text-align: right;
     font-weight: 500;
   }
+
+  .task-detail-container {
+    flex: 1;
+    width: 100%;
+    height: max-content;
+    padding: 20px 20px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .task-detail-container .title-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .task-detail-container .title-container .left {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .task-detail-container .title-container .right {
+    display: flex;
+    align-items: center;
+  }
+  .task-detail-container .title-container .right button {
+    padding: 12px 20px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+  .task-detail-container .title-container .right .add-new-task-button {
+    background-color: white;
+    color: black;
+    border: 1px solid;
+    border-color: #cbcbcb;
+  }
+  .task-detail-container .title-container .right .focus-icon,
+  .task-detail-container .title-container .right .add-task-icon {
+    margin-right: 7px;
+    font-size: 17px;
+  }
+  .task-detail-container .title-container .right .add-task-icon {
+    opacity: 0.6;
+  }
 `;
 
 export function TaskDetailPage() {
@@ -206,6 +262,25 @@ export function TaskDetailPage() {
             <div>
               <div className="left">Ideal Session Length : </div>
               <div className="right">120 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="task-detail-container">
+          <div className="title-container">
+            <div className="left">Tasks List</div>
+            <div className="right">
+              <button className="focus-mode-button">
+                <FontAwesomeIcon icon={faHourglass} className="focus-icon" />{" "}
+                Focus Mode
+              </button>
+              <button className="add-new-task-button">
+                <FontAwesomeIcon
+                  icon={faSquarePlus}
+                  className="add-task-icon"
+                />{" "}
+                Add New Task
+              </button>
             </div>
           </div>
         </div>
