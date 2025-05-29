@@ -24,7 +24,7 @@ const Container = styled.div`
 
   & .left-wrapper {
     flex: 2;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
   }
@@ -35,6 +35,7 @@ const Container = styled.div`
   .profile-container {
     width: 100%;
     height: 120px;
+    min-height: 120px;
     background-color: white;
     padding: 10px 20px;
     display: flex;
@@ -166,7 +167,7 @@ const Container = styled.div`
   .task-detail-container {
     flex: 1;
     width: 100%;
-    height: max-content;
+    min-height: 0;
     padding: 20px 20px;
     background-color: white;
     border-radius: 10px;
@@ -214,8 +215,28 @@ const Container = styled.div`
     opacity: 0.6;
   }
   .task-detail-container .task-list-container {
-    width: 100%;
     flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    min-height: 0;
+    padding: 0 20px;
+    margin-top: 10px;
+  }
+  .task-detail-container .task-list-container::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .task-detail-container .task-list-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .task-detail-container .task-list-container::-webkit-scrollbar-thumb {
+    background-color: #c3c3c3;
+    /* border-radius: 10px; */
+  }
+
+  .task-detail-container .task-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
   }
 `;
 
@@ -352,6 +373,36 @@ export function TaskDetailPage() {
               priorityColor="#51b3ff"
               taskGenre="Dribble"
               taskName="Change prototype"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
+            />
+            <Task
+              priority="low"
+              priorityColor="#b16ced"
+              taskGenre="Javascript"
+              taskName="Add api call scripts"
             />
             <Task
               priority="low"
