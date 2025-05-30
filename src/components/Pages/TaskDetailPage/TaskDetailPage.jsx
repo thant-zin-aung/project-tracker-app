@@ -20,7 +20,10 @@ import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
 import person3 from "../../../assets/img/person-3.jpg";
 import person4 from "../../../assets/img/person-4.jpg";
-import { updateToDoTaskIsFinish } from "../../../firestoreService";
+import {
+  updateToDoTaskIsFinish,
+  deleteToDoTask,
+} from "../../../firestoreService";
 
 const Container = styled.div`
   width: 100%;
@@ -431,6 +434,7 @@ export function TaskDetailPage({
   onClickNewToDoTask,
   clickableButtons,
   todoTasks,
+  refreshTodoTask,
 }) {
   const priorityMap = {
     high: {
@@ -531,6 +535,7 @@ export function TaskDetailPage({
                 taskGenre={todoTask.genre}
                 taskName={todoTask.name}
                 isFinish={todoTask.isFinish}
+                refreshTodoTask={refreshTodoTask}
               />
             ))}
           </div>
@@ -595,6 +600,7 @@ function Task({
   taskGenre,
   taskName,
   isFinish,
+  refreshTodoTask,
 }) {
   const [taskFinish, setTaskFinish] = useState(isFinish);
   async function handleOnChangeTask() {
@@ -606,6 +612,15 @@ function Task({
       alert("Failed to change task finish value: " + error.message);
     }
   }
+  async function handleDeleteTask() {
+    try {
+      await deleteToDoTask(taskId);
+      refreshTodoTask();
+    } catch (error) {
+      alert("Failed to change task finish value: " + error.message);
+    }
+  }
+
   return (
     <TaskContainer $priorityColor={priorityColor}>
       <div className="left">
@@ -627,7 +642,11 @@ function Task({
           <FontAwesomeIcon icon={faCircle} className="priority-icon" />
           {priority}
         </div>
-        <FontAwesomeIcon icon={faTrashCan} className="delete-icon" />
+        <FontAwesomeIcon
+          icon={faTrashCan}
+          className="delete-icon"
+          onClick={handleDeleteTask}
+        />
       </div>
     </TaskContainer>
   );

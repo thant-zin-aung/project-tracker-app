@@ -184,3 +184,14 @@ export async function getToDoTasksByTaskId(taskId) {
     throw error;
   }
 }
+
+export async function deleteToDoTask(todoTaskId) {
+  try {
+    const todoTaskDoc = doc(db, "todoTasks", todoTaskId);
+    await deleteDoc(todoTaskDoc);
+    alert(`Successfully deleted todoTask with ID: ${todoTaskId}`);
+  } catch (error) {
+    console.error("Error deleting todoTask:", error);
+    throw error;
+  }
+}

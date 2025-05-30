@@ -143,6 +143,7 @@ export default function Dashboard() {
           onClickNewToDoTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
           todoTasks={todoTasks}
+          refreshTodoTask={refreshTodoTask}
         />
       )}
 
