@@ -80,6 +80,14 @@ const ToDoForm = styled.div`
 `;
 
 export function NewToDoTaskForm({ onClickClose, refreshProjects }) {
+  const [priority, setPriority] = useState("");
+  const [genre, setGenre] = useState("");
+  const [name, setName] = useState("");
+
+  function handleClickAdd() {
+    console.log(name + ":" + genre + ":" + priority);
+  }
+
   return (
     <ToDoForm>
       <h2 className="form-title">Create New To Do Task</h2>
@@ -94,7 +102,12 @@ export function NewToDoTaskForm({ onClickClose, refreshProjects }) {
             Priority status <span className="star-icon">*</span>
           </label>
           <br />
-          <select name="priority-status" id="priority-status">
+          <select
+            name="priority-status"
+            id="priority-status"
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option value="">-</option>
             <option value="high">High</option>
             <option value="medium">Medium</option>
             <option value="low">Low</option>
@@ -104,15 +117,29 @@ export function NewToDoTaskForm({ onClickClose, refreshProjects }) {
           <label htmlFor="task-genre">
             Task genre <span className="star-icon">*</span>
           </label>
-          <input type="text" id="task-genre" spellCheck="false" />
+          <input
+            type="text"
+            id="task-genre"
+            spellCheck="false"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+          />
         </div>
         <div>
           <label htmlFor="task-name">
             Task name <span className="star-icon">*</span>
           </label>
-          <input type="text" id="task-name" spellCheck="false" />
+          <input
+            type="text"
+            id="task-name"
+            spellCheck="false"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
-        <button className="add-button">ADD</button>
+        <button className="add-button" onClick={handleClickAdd}>
+          ADD
+        </button>
       </div>
     </ToDoForm>
   );
