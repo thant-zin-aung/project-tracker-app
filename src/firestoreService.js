@@ -131,3 +131,36 @@ export async function getAllTasksByProjectId(projectId) {
     throw error;
   }
 }
+
+// Create a To-Do Task linked to a Task ID
+export async function createToDoTask(taskId, priority, genre, name) {
+  try {
+    const docRef = await addDoc(collection(db, "todoTasks"), {
+      taskId,
+      priority,
+      genre,
+      name,
+      createdAt: serverTimestamp(),
+    });
+    return docRef.id; // Return the generated document ID
+  } catch (error) {
+    console.error("Error creating To-Do Task:", error);
+    throw error;
+  }
+}
+
+export async function getToDoTasksByTaskId(taskId) {
+  try {
+    const todoTasksRef = collection(db, "todoTasks");
+    const q = query(todoTasksRef, where("taskId", "==", taskId));
+    const querySnapshot = await getDocs(q);
+    const todoTasks = [];
+    querySnapshot.forEach((doc) => {
+      todoTasks.push({ id: doc.id, ...doc.data() });
+    });
+    return todoTasks;
+  } catch (error) {
+    console.error("Error fetching To-Do Tasks:", error);
+    throw error;
+  }
+}

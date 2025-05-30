@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import "../../firestoreService";
 
 const ToDoForm = styled.div`
   width: 100%;
@@ -79,13 +80,21 @@ const ToDoForm = styled.div`
   }
 `;
 
-export function NewToDoTaskForm({ onClickClose }) {
+export function NewToDoTaskForm({ onClickClose, selectedTaskId }) {
   const [priority, setPriority] = useState("");
   const [genre, setGenre] = useState("");
   const [name, setName] = useState("");
 
-  function handleClickAdd() {
-    console.log(name + ":" + genre + ":" + priority);
+  async function handleClickAdd() {
+    try {
+      await createToDoTask(selectedTaskId, priority, genre, name);
+      alert("New todo task added successfully");
+      //   refreshProjects();
+      onClickClose();
+    } catch (error) {
+      console.error("Error adding project:", error);
+      alert("Failed to create project: " + error.message);
+    }
     onClickClose();
   }
 
