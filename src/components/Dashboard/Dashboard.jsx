@@ -27,6 +27,8 @@ export default function Dashboard() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [taskRefreshTrigger, setTaskRefreshTrigger] = useState(0);
   const [selectedProjectId, setSelectedProjectId] = useState(0);
+  const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(0);
 
   useEffect(() => {
     const fetchProjectsAndTasks = async () => {
@@ -107,15 +109,23 @@ export default function Dashboard() {
           setSelectedProjectId(projectId);
         }}
       />
-      {/* <HomePage
-        onClickNewTask={handleCloseNewFormContainer}
-        clickableButtons={buttonName}
-        tasks={tasks}
-      /> */}
-      <TaskDetailPage
-        onClickNewToDoTask={handleCloseNewFormContainer}
-        clickableButtons={buttonName}
-      />
+      {!isViewInTaskDetailPage ? (
+        <HomePage
+          onClickNewTask={handleCloseNewFormContainer}
+          clickableButtons={buttonName}
+          tasks={tasks}
+          showTaskDetailPage={() => setIsViewInTaskDetailPage(true)}
+          onChangeSelectedTaskId={(taskId) => {
+            setSelectedTaskId(taskId);
+          }}
+        />
+      ) : (
+        <TaskDetailPage
+          onClickNewToDoTask={handleCloseNewFormContainer}
+          clickableButtons={buttonName}
+        />
+      )}
+
       <NewFormContainer
         isShowNewFormContainer={showNewFormContainer}
         onClickClose={handleCloseNewFormContainer}

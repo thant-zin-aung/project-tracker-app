@@ -79,13 +79,14 @@ const ToDoForm = styled.div`
   }
 `;
 
-export function NewToDoTaskForm({ onClickClose, refreshProjects }) {
+export function NewToDoTaskForm({ onClickClose }) {
   const [priority, setPriority] = useState("");
   const [genre, setGenre] = useState("");
   const [name, setName] = useState("");
 
   function handleClickAdd() {
     console.log(name + ":" + genre + ":" + priority);
+    onClickClose();
   }
 
   return (

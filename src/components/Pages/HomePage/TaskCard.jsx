@@ -124,7 +124,12 @@ function calculateDaysLeft(dueDateString) {
   return diffDays;
 }
 
-export function TaskCard({ task, taskImage }) {
+export function TaskCard({
+  task,
+  taskImage,
+  showTaskDetailPage,
+  onChangeSelectedTaskId,
+}) {
   const taskStatusColor = {
     important: "#3e3ab4",
     irrelevant: "#ffc260",
@@ -135,9 +140,14 @@ export function TaskCard({ task, taskImage }) {
     calculatedDueDateDays < 0
       ? "Overdue"
       : "Due in " + calculatedDueDateDays + " days";
+  function handleOnClickTaskCard() {
+    showTaskDetailPage();
+    onChangeSelectedTaskId(task.id);
+  }
   return (
     <Card
       $statusColor={taskStatusColor[task.status] || taskStatusColor.default}
+      onClick={handleOnClickTaskCard}
     >
       <div className="title-container">
         <div className="left-container">

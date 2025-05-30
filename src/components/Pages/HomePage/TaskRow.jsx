@@ -50,7 +50,14 @@ const RowTitleContainer = styled.div`
   }
 `;
 
-export function TaskRow({ onClickNewTask, taskImage, taskRowTitle, tasks }) {
+export function TaskRow({
+  onClickNewTask,
+  taskImage,
+  taskRowTitle,
+  tasks,
+  showTaskDetailPage,
+  onChangeSelectedTaskId,
+}) {
   return (
     <RowContainer>
       <RowTitleContainer>
@@ -68,7 +75,13 @@ export function TaskRow({ onClickNewTask, taskImage, taskRowTitle, tasks }) {
       {/* <TaskCard taskImage={taskImage} /> */}
 
       {tasks.map((task, index) => (
-        <TaskCard key={index} taskImage="" task={task} />
+        <TaskCard
+          key={index}
+          taskImage=""
+          task={task}
+          showTaskDetailPage={showTaskDetailPage}
+          onChangeSelectedTaskId={onChangeSelectedTaskId}
+        />
       ))}
     </RowContainer>
   );

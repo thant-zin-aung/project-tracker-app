@@ -2,7 +2,13 @@ import Header from "./Header/Header";
 import { TaskContainer } from "./TaskContainer";
 import PageStyle from "./HomePage.module.css";
 
-export function HomePage({ onClickNewTask, clickableButtons, tasks }) {
+export function HomePage({
+  onClickNewTask,
+  clickableButtons,
+  tasks,
+  showTaskDetailPage,
+  onChangeSelectedTaskId,
+}) {
   return (
     <div className={PageStyle.page}>
       <Header />
@@ -10,6 +16,8 @@ export function HomePage({ onClickNewTask, clickableButtons, tasks }) {
         onClickNewTask={onClickNewTask}
         clickableButtons={clickableButtons}
         tasks={tasks}
+        showTaskDetailPage={showTaskDetailPage}
+        onChangeSelectedTaskId={onChangeSelectedTaskId}
       />
     </div>
   );
