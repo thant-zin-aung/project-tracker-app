@@ -133,18 +133,38 @@ export async function getAllTasksByProjectId(projectId) {
 }
 
 // Create a To-Do Task linked to a Task ID
-export async function createToDoTask(taskId, priority, genre, name) {
+export async function createToDoTask(
+  taskId,
+  priority,
+  genre,
+  name,
+  isFinish = false
+) {
   try {
     const docRef = await addDoc(collection(db, "todoTasks"), {
       taskId,
       priority,
       genre,
       name,
+      isFinish,
       createdAt: serverTimestamp(),
     });
-    return docRef.id; // Return the generated document ID
+    return docRef.id;
   } catch (error) {
     console.error("Error creating To-Do Task:", error);
+    throw error;
+  }
+}
+
+// Update isFinish field of a To-Do Task by its todoTaskId
+export async function updateToDoTaskIsFinish(todoTaskId, isFinish) {
+  try {
+    const todoTaskRef = doc(db, "todoTasks", todoTaskId);
+    await updateDoc(todoTaskRef, {
+      isFinish: isFinish,
+    });
+  } catch (error) {
+    console.error("Error updating To-Do Task isFinish:", error);
     throw error;
   }
 }

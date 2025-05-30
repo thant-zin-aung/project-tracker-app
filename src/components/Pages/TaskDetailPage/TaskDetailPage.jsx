@@ -20,6 +20,7 @@ import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
 import person3 from "../../../assets/img/person-3.jpg";
 import person4 from "../../../assets/img/person-4.jpg";
+import { updateToDoTaskIsFinish } from "../../../firestoreService";
 
 const Container = styled.div`
   width: 100%;
@@ -523,54 +524,15 @@ export function TaskDetailPage({
           <div className="task-list-container">
             {todoTasks.map((todoTask) => (
               <Task
+                key={todoTask.id}
+                taskId={todoTask.id}
                 priority={priorityMap[todoTask.priority].text}
                 priorityColor={priorityMap[todoTask.priority].color}
                 taskGenre={todoTask.genre}
                 taskName={todoTask.name}
+                isFinish={todoTask.isFinish}
               />
             ))}
-            {/* <Task
-              priority={priorityMap.high.text}
-              priorityColor={priorityMap.high.color}
-              taskGenre="React"
-              taskName="Create design system"
-            />
-            <Task
-              priority={priorityMap.medium.text}
-              priorityColor={priorityMap.medium.color}
-              taskGenre="Dribble"
-              taskName="Change prototype"
-            />
-            <Task
-              priority={priorityMap.low.text}
-              priorityColor={priorityMap.low.color}
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            />
-            <Task
-              priority={priorityMap.low.text}
-              priorityColor={priorityMap.low.color}
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            />
-            <Task
-              priority={priorityMap.low.text}
-              priorityColor={priorityMap.low.color}
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            />
-            <Task
-              priority={priorityMap.low.text}
-              priorityColor={priorityMap.low.color}
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            />
-            <Task
-              priority={priorityMap.low.text}
-              priorityColor={priorityMap.low.color}
-              taskGenre="Javascript"
-              taskName="Add api call scripts"
-            /> */}
           </div>
         </div>
       </div>
@@ -626,11 +588,32 @@ export function TaskDetailPage({
   );
 }
 
-function Task({ priority, priorityColor, taskGenre, taskName }) {
+function Task({
+  taskId,
+  priority,
+  priorityColor,
+  taskGenre,
+  taskName,
+  isFinish,
+}) {
+  const [taskFinish, setTaskFinish] = useState(isFinish);
+  async function handleOnChangeTask() {
+    try {
+      await updateToDoTaskIsFinish(taskId, !taskFinish);
+      setTaskFinish((prev) => !prev);
+    } catch (error) {
+      console.error("Error change isFinish value:", error);
+      alert("Failed to change task finish value: " + error.message);
+    }
+  }
   return (
     <TaskContainer $priorityColor={priorityColor}>
       <div className="left">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={taskFinish}
+          onChange={handleOnChangeTask}
+        />
         <label htmlFor="">
           <div>
             <FontAwesomeIcon icon={faBarsStaggered} className="list-icon" />
