@@ -426,7 +426,11 @@ const TaskContainer = styled.div`
   }
 `;
 
-export function TaskDetailPage({ onClickNewToDoTask, clickableButtons }) {
+export function TaskDetailPage({
+  onClickNewToDoTask,
+  clickableButtons,
+  todoTasks,
+}) {
   const priorityMap = {
     high: {
       text: "high",
@@ -517,7 +521,15 @@ export function TaskDetailPage({ onClickNewToDoTask, clickableButtons }) {
             </div>
           </div>
           <div className="task-list-container">
-            <Task
+            {todoTasks.map((todoTask) => (
+              <Task
+                priority={priorityMap[todoTask.priority].text}
+                priorityColor={priorityMap[todoTask.priority].color}
+                taskGenre={todoTask.genre}
+                taskName={todoTask.name}
+              />
+            ))}
+            {/* <Task
               priority={priorityMap.high.text}
               priorityColor={priorityMap.high.color}
               taskGenre="React"
@@ -558,7 +570,7 @@ export function TaskDetailPage({ onClickNewToDoTask, clickableButtons }) {
               priorityColor={priorityMap.low.color}
               taskGenre="Javascript"
               taskName="Add api call scripts"
-            />
+            /> */}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import "../../firestoreService";
+import { createToDoTask } from "../../firestoreService";
 
 const ToDoForm = styled.div`
   width: 100%;
@@ -80,7 +80,11 @@ const ToDoForm = styled.div`
   }
 `;
 
-export function NewToDoTaskForm({ onClickClose, selectedTaskId }) {
+export function NewToDoTaskForm({
+  onClickClose,
+  selectedTaskId,
+  refreshTodoTask,
+}) {
   const [priority, setPriority] = useState("");
   const [genre, setGenre] = useState("");
   const [name, setName] = useState("");
@@ -89,8 +93,7 @@ export function NewToDoTaskForm({ onClickClose, selectedTaskId }) {
     try {
       await createToDoTask(selectedTaskId, priority, genre, name);
       alert("New todo task added successfully");
-      //   refreshProjects();
-      onClickClose();
+      refreshTodoTask();
     } catch (error) {
       console.error("Error adding project:", error);
       alert("Failed to create project: " + error.message);

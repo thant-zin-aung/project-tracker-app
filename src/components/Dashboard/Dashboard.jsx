@@ -1,6 +1,7 @@
 import {
   getProjectsByOwner,
   getAllTasksByProjectId,
+  getToDoTasksByTaskId,
 } from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
@@ -24,8 +25,10 @@ export default function Dashboard() {
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [todoTasks, setTodoTasks] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [taskRefreshTrigger, setTaskRefreshTrigger] = useState(0);
+  const [todoTaskRefreshTrigger, setTodoTaskRefreshTrigger] = useState(0);
   const [selectedProjectId, setSelectedProjectId] = useState(0);
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
@@ -56,8 +59,22 @@ export default function Dashboard() {
     fetchTasks();
   }, [selectedProjectId, taskRefreshTrigger]);
 
+  useEffect(() => {
+    if (!selectedTaskId) return;
+    const fetchProjectsAndTasks = async () => {
+      try {
+        const todoTaskList = await getToDoTasksByTaskId(selectedTaskId);
+        setTodoTasks(todoTaskList);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjectsAndTasks();
+  }, [selectedTaskId, todoTaskRefreshTrigger]);
+
   const refreshProjects = () => setRefreshTrigger((prev) => prev + 1);
   const refreshTask = () => setTaskRefreshTrigger((prev) => prev + 1);
+  const refreshTodoTask = () => setTodoTaskRefreshTrigger((prev) => prev + 1);
 
   let handleCloseNewFormContainer = (clickedButton) => {
     switch (clickedButton) {
@@ -89,6 +106,7 @@ export default function Dashboard() {
               handleCloseNewFormContainer(buttonName.NEW_TODO_TASK)
             }
             selectedTaskId={selectedTaskId}
+            refreshTodoTask={refreshTodoTask}
           />
         );
         break;
@@ -124,6 +142,7 @@ export default function Dashboard() {
         <TaskDetailPage
           onClickNewToDoTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
+          todoTasks={todoTasks}
         />
       )}
 
