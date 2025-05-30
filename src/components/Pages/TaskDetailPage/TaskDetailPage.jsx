@@ -52,6 +52,7 @@ const Container = styled.div`
     align-items: center;
     border-radius: 10px;
     margin-bottom: 20px;
+    box-shadow: 1px 1px 8px 1px #f7f7f7;
   }
   .task-outline-container .left-container {
     height: 100%;
@@ -182,6 +183,7 @@ const Container = styled.div`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    box-shadow: 1px 1px 8px 1px #f7f7f7;
   }
   .task-detail-container .title-container {
     width: 100%;
@@ -263,8 +265,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border: 1px solid;
-    border-color: #e0e0e0;
+    /* border: 1px solid;
+    border-color: #e0e0e0; */
+    box-shadow: 1px 1px 8px 1px #f7f7f7;
   }
   & .focus-mode-container > .title {
     font-size: 30px;
@@ -423,7 +426,7 @@ const TaskContainer = styled.div`
   }
 `;
 
-export function TaskDetailPage() {
+export function TaskDetailPage({ onClickNewToDoTask, clickableButtons }) {
   const priorityMap = {
     high: {
       text: "high",
@@ -502,7 +505,12 @@ export function TaskDetailPage() {
                 <FontAwesomeIcon icon={faHourglass} className="focus-icon" />{" "}
                 Focus Mode
               </button>
-              <button className="add-new-task-button">
+              <button
+                className="add-new-task-button"
+                onClick={() =>
+                  onClickNewToDoTask(clickableButtons.NEW_TODO_TASK)
+                }
+              >
                 <FontAwesomeIcon icon={faPlus} className="add-task-icon" /> Add
                 New Task
               </button>

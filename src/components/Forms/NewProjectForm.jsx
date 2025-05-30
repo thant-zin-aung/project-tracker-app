@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { db, auth } from "../../firebase";
+import { auth } from "../../firebase";
 import { createProject } from "../../firestoreService";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
 import styled from "styled-components";
 
@@ -81,7 +79,7 @@ const ProjectForm = styled.div`
   }
 `;
 
-export function NewProjectForm({ onClickClose, refreshProjects }) {
+export function NewProjectForm({ onClickClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [contributors, setContributors] = useState(""); // Comma-separated

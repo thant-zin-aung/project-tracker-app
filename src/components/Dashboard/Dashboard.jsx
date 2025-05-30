@@ -9,11 +9,13 @@ import { HomePage } from "../Pages/HomePage/HomePage.jsx";
 import { NewTaskForm } from "../Forms/NewTaskForm.jsx";
 import { NewFormContainer } from "../Forms/NewFormContainer.jsx";
 import { NewProjectForm } from "../Forms/NewProjectForm.jsx";
+import { NewToDoTaskForm } from "../Forms/NewToDoTaskForm.jsx";
 import { TaskDetailPage } from "../Pages/TaskDetailPage/TaskDetailPage.jsx";
 
 const buttonName = {
   NEW_PROJECT: "new-project",
   NEW_TASK: "new-task",
+  NEW_TODO_TASK: "new-todo-task",
 };
 
 let childForm;
@@ -78,6 +80,15 @@ export default function Dashboard() {
           />
         );
         break;
+      case buttonName.NEW_TODO_TASK:
+        childForm = (
+          <NewToDoTaskForm
+            onClickClose={() =>
+              handleCloseNewFormContainer(buttonName.NEW_TODO_TASK)
+            }
+          />
+        );
+        break;
       default:
         console.log("Unknown button clicked");
         childForm = null;
@@ -101,7 +112,10 @@ export default function Dashboard() {
         clickableButtons={buttonName}
         tasks={tasks}
       /> */}
-      <TaskDetailPage />
+      <TaskDetailPage
+        onClickNewToDoTask={handleCloseNewFormContainer}
+        clickableButtons={buttonName}
+      />
       <NewFormContainer
         isShowNewFormContainer={showNewFormContainer}
         onClickClose={handleCloseNewFormContainer}
