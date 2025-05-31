@@ -2,6 +2,7 @@ import {
   getProjectsByOwner,
   getAllTasksByProjectId,
   getToDoTasksByTaskId,
+  getTaskById,
 } from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
@@ -32,6 +33,7 @@ export default function Dashboard() {
   const [selectedProjectId, setSelectedProjectId] = useState(0);
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
+  const [selectedTask, setSelectedTask] = useState({});
 
   useEffect(() => {
     const fetchProjectsAndTasks = async () => {
@@ -65,6 +67,8 @@ export default function Dashboard() {
       try {
         const todoTaskList = await getToDoTasksByTaskId(selectedTaskId);
         setTodoTasks(todoTaskList);
+        const currentTask = await getTaskById(selectedTaskId);
+        setSelectedTask(currentTask);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -142,6 +146,7 @@ export default function Dashboard() {
         <TaskDetailPage
           onClickNewToDoTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
+          selectedTask={selectedTask}
           todoTasks={todoTasks}
           refreshTodoTask={refreshTodoTask}
         />

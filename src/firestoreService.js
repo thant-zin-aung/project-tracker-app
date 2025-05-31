@@ -5,6 +5,7 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   query,
   where,
   orderBy,
@@ -132,7 +133,22 @@ export async function getAllTasksByProjectId(projectId) {
   }
 }
 
-// Create a To-Do Task linked to a Task ID
+export async function getTaskById(taskId) {
+  try {
+    const taskDoc = doc(db, "tasks", taskId);
+    const docSnapshot = await getDoc(taskDoc);
+    if (docSnapshot.exists()) {
+      return { id: docSnapshot.id, ...docSnapshot.data() };
+    } else {
+      console.warn(`No task found with ID: ${taskId}`);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting task by ID:", error);
+    throw error;
+  }
+}
+
 export async function createToDoTask(
   taskId,
   priority,
