@@ -124,12 +124,7 @@ function calculateDaysLeft(dueDateString) {
   return diffDays;
 }
 
-export function TaskCard({
-  task,
-  taskImage,
-  showTaskDetailPage,
-  onChangeSelectedTaskId,
-}) {
+export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
   const taskStatusColor = {
     important: "#3e3ab4",
     irrelevant: "#ffc260",
@@ -171,7 +166,9 @@ export function TaskCard({
         vero. */}
         {task.description}
       </div>
-      {taskImage && <img src={taskImage} alt="Task" className="task-image" />}
+      {task.imageUrl && (
+        <img src={task.imageUrl} alt="Task" className="task-image" />
+      )}
       <div className="due-day-container">
         <FontAwesomeIcon icon={faClock} className="clock-icon" />
         <span className="text">{dueDateLabel}</span>

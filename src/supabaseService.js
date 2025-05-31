@@ -1,8 +1,9 @@
 import { supabase } from "./supabase";
 
 export async function uploadImage(file) {
+  console.log("called");
   if (!file) {
-    alert("Please select a file.");
+    // alert("Please select a file.");
     return;
   }
 

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { createTask } from "../../firestoreService";
+import { uploadImage } from "../../supabaseService";
 
 const TaskForm = styled.div`
   width: 100%;
@@ -152,7 +153,16 @@ export function NewTaskForm({ onClickClose, projectId, refreshTasks }) {
   const [preview, setPreview] = useState(null);
 
   async function handleOnClickAdd() {
-    await createTask(projectId, taskTitle, taskDesc, taskStatus, dueDate);
+    const taskImagePublicUrl =
+      taskImageFile != null && (await uploadImage(taskImageFile));
+    await createTask(
+      projectId,
+      taskTitle,
+      taskDesc,
+      taskStatus,
+      dueDate,
+      taskImagePublicUrl
+    );
     refreshTasks();
     onClickClose();
   }

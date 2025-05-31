@@ -77,7 +77,6 @@ export function TaskRow({
       {tasks.map((task, index) => (
         <TaskCard
           key={index}
-          taskImage=""
           task={task}
           showTaskDetailPage={showTaskDetailPage}
           onChangeSelectedTaskId={onChangeSelectedTaskId}
