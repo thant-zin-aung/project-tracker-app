@@ -189,11 +189,11 @@ export async function getToDoTasksByTaskId(taskId) {
   try {
     const todoTasksRef = collection(db, "todoTasks");
     const q = query(todoTasksRef, where("taskId", "==", taskId));
-    const querySnapshot = await getDocs(q);
-    const todoTasks = [];
-    querySnapshot.forEach((doc) => {
-      todoTasks.push({ id: doc.id, ...doc.data() });
-    });
+    const docs = (await getDocs(q)).docs;
+    const todoTasks = docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     return todoTasks;
   } catch (error) {
     console.error("Error fetching To-Do Tasks:", error);
@@ -214,22 +214,35 @@ export async function deleteToDoTask(todoTaskId) {
 
 export async function getTasksByProjectSeparated(projectId) {
   const tasksRef = collection(db, "tasks");
-  const q = query(tasksRef, where("projectId", "==", projectId));
-  const taskSnapshot = await getDocs(q);
+  const q = query(
+    tasksRef,
+    where("projectId", "==", projectId),
+    orderBy("createdAt", "desc")
+  );
+
+  const querySnapshot = await getDocs(q);
+  const tasks = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  const taskTodoPromises = tasks.map(async (task) => {
+    const todoTasks = await getToDoTasksByTaskId(task.id);
+    return { task, todoTasks };
+  });
+
+  const taskTodoResults = await Promise.all(taskTodoPromises);
 
   const toDoTasks = [];
   const inProgressTasks = [];
   const doneTasks = [];
 
-  for (const taskDoc of taskSnapshot.docs) {
-    const task = { id: taskDoc.id, ...taskDoc.data() };
-    const todoTasks = await getToDoTasksByTaskId(task.id);
+  for (const { task, todoTasks } of taskTodoResults) {
     if (todoTasks.length === 0) {
       toDoTasks.push(task);
     } else {
       const allFinished = todoTasks.every((todo) => todo.isFinish === true);
       const allNotFinished = todoTasks.every((todo) => todo.isFinish === false);
-
       if (allFinished) {
         doneTasks.push(task);
       } else if (allNotFinished) {
