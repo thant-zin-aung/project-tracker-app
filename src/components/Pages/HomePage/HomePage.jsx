@@ -5,7 +5,7 @@ import PageStyle from "./HomePage.module.css";
 export function HomePage({
   onClickNewTask,
   clickableButtons,
-  tasks,
+  seperateTasks,
   showTaskDetailPage,
   onChangeSelectedTaskId,
 }) {
@@ -15,7 +15,7 @@ export function HomePage({
       <TaskContainer
         onClickNewTask={onClickNewTask}
         clickableButtons={clickableButtons}
-        tasks={tasks}
+        seperateTasks={seperateTasks}
         showTaskDetailPage={showTaskDetailPage}
         onChangeSelectedTaskId={onChangeSelectedTaskId}
       />

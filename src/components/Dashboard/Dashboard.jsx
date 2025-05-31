@@ -3,6 +3,7 @@ import {
   getAllTasksByProjectId,
   getToDoTasksByTaskId,
   getTaskById,
+  getTasksByProjectSeparated,
 } from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
@@ -25,7 +26,11 @@ let childForm;
 export default function Dashboard() {
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState({
+    toDoTasks: [],
+    inProgressTasks: [],
+    doneTasks: [],
+  });
   const [todoTasks, setTodoTasks] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [taskRefreshTrigger, setTaskRefreshTrigger] = useState(0);
@@ -52,8 +57,11 @@ export default function Dashboard() {
     if (!selectedProjectId) return;
     const fetchTasks = async () => {
       try {
-        const tasks = await getAllTasksByProjectId(selectedProjectId);
-        setTasks(tasks);
+        // const tasks = await getAllTasksByProjectId(selectedProjectId);
+        const seperateTasks = await getTasksByProjectSeparated(
+          selectedProjectId
+        );
+        setTasks(seperateTasks);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -136,7 +144,7 @@ export default function Dashboard() {
         <HomePage
           onClickNewTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
-          tasks={tasks}
+          seperateTasks={tasks}
           showTaskDetailPage={() => setIsViewInTaskDetailPage(true)}
           onChangeSelectedTaskId={(taskId) => {
             setSelectedTaskId(taskId);

@@ -211,3 +211,34 @@ export async function deleteToDoTask(todoTaskId) {
     throw error;
   }
 }
+
+export async function getTasksByProjectSeparated(projectId) {
+  const tasksRef = collection(db, "tasks");
+  const q = query(tasksRef, where("projectId", "==", projectId));
+  const taskSnapshot = await getDocs(q);
+
+  const toDoTasks = [];
+  const inProgressTasks = [];
+  const doneTasks = [];
+
+  for (const taskDoc of taskSnapshot.docs) {
+    const task = { id: taskDoc.id, ...taskDoc.data() };
+    const todoTasks = await getToDoTasksByTaskId(task.id);
+    if (todoTasks.length === 0) {
+      toDoTasks.push(task);
+    } else {
+      const allFinished = todoTasks.every((todo) => todo.isFinish === true);
+      const allNotFinished = todoTasks.every((todo) => todo.isFinish === false);
+
+      if (allFinished) {
+        doneTasks.push(task);
+      } else if (allNotFinished) {
+        toDoTasks.push(task);
+      } else {
+        inProgressTasks.push(task);
+      }
+    }
+  }
+
+  return { toDoTasks, inProgressTasks, doneTasks };
+}

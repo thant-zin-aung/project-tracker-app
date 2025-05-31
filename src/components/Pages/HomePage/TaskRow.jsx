@@ -63,7 +63,7 @@ export function TaskRow({
       <RowTitleContainer>
         <div className="left-container">
           <div className="title">
-            {taskRowTitle} <span className="total-task">(26)</span>{" "}
+            {taskRowTitle} <span className="total-task">({tasks.length})</span>{" "}
           </div>
         </div>
         <div className="right-container">
