@@ -96,7 +96,7 @@ const InviteForm = styled.div`
     background-color: #bbbbbb;
   }
 `;
-export function InviteUserForm({ onClickClose, refreshTasks }) {
+export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
   return (
     <InviteForm>
       <h2 className="form-title">Invite New Contributor</h2>
@@ -109,21 +109,13 @@ export function InviteUserForm({ onClickClose, refreshTasks }) {
         <input type="text" placeholder="Search users to invite..." />
         <button className="add-button">Invite Users</button>
         <div className="search-result-container">
-          <AvailableUser
-            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-            userName="John Alby"
-            userEmail="johnalby.dev@gmail.com"
-          />
-          <AvailableUser
-            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-            userName="John Alby"
-            userEmail="johnalby.dev@gmail.com"
-          />
-          <AvailableUser
-            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-            userName="John Alby"
-            userEmail="johnalby.dev@gmail.com"
-          />
+          {allUser.map((user) => (
+            <AvailableUser
+              imageUrl={user.imageUrl}
+              userName={user.name}
+              userEmail={user.email}
+            />
+          ))}
         </div>
       </div>
       <div className="selected-root-container">

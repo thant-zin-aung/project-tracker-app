@@ -1,4 +1,5 @@
 import {
+  getAllUsers,
   getUserInfo,
   getProjectsByOwner,
   getAllTasksByProjectId,
@@ -28,6 +29,7 @@ const buttonName = {
 let childForm;
 
 export default function Dashboard() {
+  const [allUser, setAllUser] = useState([]);
   const [loginUser, setLoginUser] = useState({});
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -44,6 +46,18 @@ export default function Dashboard() {
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
   const [selectedTask, setSelectedTask] = useState({});
+
+  useEffect(() => {
+    const fetchAllUserInfo = async () => {
+      try {
+        const allUserInfo = await getAllUsers();
+        setAllUser(allUserInfo);
+      } catch (error) {
+        console.error("Error fetching all userInfo:", error);
+      }
+    };
+    fetchAllUserInfo();
+  }, []);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -148,6 +162,7 @@ export default function Dashboard() {
               handleCloseNewFormContainer(buttonName.INVITE_USER_FORM)
             }
             refreshTasks={refreshTask}
+            allUser={allUser}
           />
         );
         break;
