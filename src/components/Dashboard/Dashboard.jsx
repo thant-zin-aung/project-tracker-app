@@ -125,7 +125,6 @@ export default function Dashboard() {
         );
         break;
       default:
-        console.log("Unknown button clicked");
         childForm = null;
     }
     setShowNewFormContainer((prev) => !prev);

@@ -519,7 +519,6 @@ export function TaskDetailPage({
 
   return (
     <Container $taskImage={selectedTask.imageUrl}>
-      {console.log("task name: " + selectedTask.name)}
       <div className="left-wrapper">
         <div className="task-outline-container">
           <div className="left-container">

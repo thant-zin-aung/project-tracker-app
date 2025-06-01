@@ -1,145 +1,169 @@
 .header {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .header .topContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header .topContainer .rightContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .searchBoxContainer {
-    width: 500px;
-    height: 50px;
-    padding: 0 20px;
-    background-color: #f0f4f9;
-    display: flex;
-    align-items: center;
-    border-radius: 50px;
+  width: 500px;
+  height: 50px;
+  padding: 0 20px;
+  background-color: #f0f4f9;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
 }
 .searchBoxContainer input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: transparent;
-    font-size: 15px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
 }
 .searchBoxContainer input:focus {
-    outline: none;
+  outline: none;
 }
 .searchIcon {
-    opacity: 0.5;
-    font-size: 17px;
-    margin-right: 10px;
+  opacity: 0.5;
+  font-size: 17px;
+  margin-right: 10px;
 }
 .dateContainer {
-    font-weight: 400;
+  font-weight: 400;
 }
 .dateContainer .calendarIcon {
-    margin-right: 15px;
-    font-weight: lighter;
+  margin-right: 15px;
+  font-weight: lighter;
 }
-.dateContainer input[type=date] {
-    display: none;
+.dateContainer input[type="date"] {
+  display: none;
 }
 .notiContainer {
-    margin-left: 100px;
-    margin-right: 30px;
+  margin-left: 100px;
+  margin-right: 30px;
 }
 .notiContainer .notiIcon {
-    font-size: 20px;
+  font-size: 20px;
 }
 .userInfoContainer {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
+.userInfoContainer:hover .logoutButton {
+  height: 40px;
+  opacity: 1;
+}
+.logoutButton {
+  position: absolute;
+  left: 0;
+  top: 45px;
+  opacity: 0;
+  width: 150px;
+  height: 0px;
+  background-color: transparent;
+  border: none;
+  box-shadow: 1px 1px 8px 1px grey;
+  border-radius: 5px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.logoutIcon {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
 .userInfoContainer .profileImage {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    object-fit: cover;
-    margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 10px;
 }
 .userInfoContainer .downArrow {
-    font-size: 13px;
-    margin-left: 5px;
+  font-size: 13px;
+  margin-left: 5px;
 }
 
 .bottomContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
 }
 .peopleContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .peopleContainer .peopleIcon {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 100%;
-    border: 2px solid white;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 2px solid white;
 }
 .peopleContainer .peopleIcon:nth-child(2) {
-    transform: translateX(-15px);
+  transform: translateX(-15px);
 }
 .peopleContainer .peopleIcon:nth-child(3) {
-    transform: translateX(-30px);
+  transform: translateX(-30px);
 }
 .peopleContainer .peopleIcon:nth-child(4) {
-    transform: translateX(-45px);
+  transform: translateX(-45px);
 }
 .peopleContainer .peopleIcon:nth-child(5) {
-    transform: translateX(-60px);
+  transform: translateX(-60px);
 }
 .peopleContainer .remainingPeople {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-color: #e6e6e6;
-    font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-color: #e6e6e6;
+  font-size: 13px;
 }
 .bottomContainer .leftContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .bottomContainer .leftContainer .invitePeopleContainer {
-    width: 150px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    border: 2px solid #e6e6e6;
-    border-radius: 20px;
-    transform: translateX(-50px);
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border: 2px solid #e6e6e6;
+  border-radius: 20px;
+  transform: translateX(-50px);
 }
 .invitePeopleContainer .addPeopleIcon {
-    margin-right: 10px;
-    color: #333cad;
+  margin-right: 10px;
+  color: #333cad;
 }
 
 .bottomContainer .rightContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .bottomContainer .rightContainer > div {
-    margin-left: 50px;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
+  margin-left: 50px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
 }
 .bottomContainer .rightContainer .statusIcon {
-    font-size: 6px;
-    margin-right: 7px;
+  font-size: 6px;
+  margin-right: 7px;
 }
