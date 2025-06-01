@@ -655,13 +655,8 @@ export function TaskDetailPage({
         <div className="task-image-container">
           <div className="backdrop-container">
             <div className="task-detail-container">
-              <div className="title">Design Ryzen Store App</div>
-              <div className="description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A
-                possimus deleniti rerum repudiandae dolorum quaerat voluptatem
-                neque. At, quod libero beatae saepe magni eius repellat
-                accusantium voluptate illum repellendus rerum.
-              </div>
+              <div className="title">{selectedTask.name}</div>
+              <div className="description">{selectedTask.description}</div>
               <button className="view-image-button">
                 View Task Image <img src={arrow} />
               </button>
