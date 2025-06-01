@@ -20,6 +20,7 @@ import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
 import person3 from "../../../assets/img/person-3.jpg";
 import person4 from "../../../assets/img/person-4.jpg";
+import arrow from "../../../assets/img/right-arrow.png";
 import {
   updateToDoTaskIsFinish,
   deleteToDoTask,
@@ -373,11 +374,75 @@ const Container = styled.div`
     border-radius: 10px;
   }
 
-  & .task-image {
+  & .task-image-container {
+    width: 100%;
+    height: 100%;
+    background-image: url(${({ $taskImage }) => $taskImage});
+    background-size: cover;
+    background-position: center;
+  }
+  & .task-image-container .backdrop-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    /* backdrop-filter: blur(2px); */
+  }
+  & .task-image-container .task-detail-container {
+    width: 70%;
+    height: 70%;
+    /* padding: 50px 30px; */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: justify;
+    text-align: center;
+    background-color: transparent;
+    box-shadow: none;
+    color: white;
+    backdrop-filter: blur(20px);
+    /* background-color: rgb(0, 0, 0, 0.5); */
+  }
+  & .task-image-container .task-detail-container .title {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  & .task-image-container .task-detail-container .description {
+    font-size: 13px;
+    opacity: 0.7;
+    margin: 20px 0;
+  }
+  & .task-image-container .task-detail-container .view-image-button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  & .task-image-container .task-detail-container .view-image-button:hover img {
+    transform: translateX(30px);
+  }
+  & .task-image-container .task-detail-container .view-image-button img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-left: 20px;
+    transition: all 0.7s ease;
+  }
+  /* & .task-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+  } */
 `;
 
 const TaskContainer = styled.div`
@@ -453,7 +518,7 @@ export function TaskDetailPage({
   };
 
   return (
-    <Container>
+    <Container $taskImage={selectedTask.imageUrl}>
       {console.log("task name: " + selectedTask.name)}
       <div className="left-wrapper">
         <div className="task-outline-container">
@@ -587,7 +652,22 @@ export function TaskDetailPage({
             <button className="save-button">Save</button>
           </div>
         </div>
-        <img src={selectedTask.imageUrl} className="task-image" />
+        <div className="task-image-container">
+          <div className="backdrop-container">
+            <div className="task-detail-container">
+              <div className="title">Design Ryzen Store App</div>
+              <div className="description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. A
+                possimus deleniti rerum repudiandae dolorum quaerat voluptatem
+                neque. At, quod libero beatae saepe magni eius repellat
+                accusantium voluptate illum repellendus rerum.
+              </div>
+              <button className="view-image-button">
+                View Task Image <img src={arrow} />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </Container>
   );
