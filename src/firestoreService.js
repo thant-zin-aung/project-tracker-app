@@ -15,7 +15,23 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
-// 1. Create a project
+export async function getUserInfo(userId) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      return { id: userDoc.id, ...userDoc.data() };
+    } else {
+      console.log("User document not found!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    throw error;
+  }
+}
+
 export async function createProject(
   name,
   description,
@@ -32,7 +48,6 @@ export async function createProject(
   return docRef.id;
 }
 
-// 2. Get all projects
 export async function getAllProjects() {
   const projectsRef = collection(db, "projects");
   const q = query(projectsRef, orderBy("createdAt", "desc"));
@@ -59,7 +74,6 @@ export async function getProjectsByOwner(userId) {
   return projects;
 }
 
-// 3. Get projects by user ID (filter where user is contributor)
 export async function getProjectsByUser(userId) {
   const projectsRef = collection(db, "projects");
   const q = query(projectsRef, where("contributors", "array-contains", userId));
@@ -71,13 +85,11 @@ export async function getProjectsByUser(userId) {
   return projects;
 }
 
-// 4. Update a project
 export async function updateProject(projectId, updates) {
   const projectDoc = doc(db, "projects", projectId);
   await updateDoc(projectDoc, updates);
 }
 
-// 5. Delete a project
 export async function deleteProject(projectId) {
   const projectDoc = doc(db, "projects", projectId);
   await deleteDoc(projectDoc);

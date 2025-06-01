@@ -3,6 +3,7 @@ import { TaskContainer } from "./TaskContainer";
 import PageStyle from "./HomePage.module.css";
 
 export function HomePage({
+  loginUser,
   onClickNewTask,
   clickableButtons,
   seperateTasks,
@@ -11,7 +12,7 @@ export function HomePage({
 }) {
   return (
     <div className={PageStyle.page}>
-      <Header />
+      <Header loginUser={loginUser} />
       <TaskContainer
         onClickNewTask={onClickNewTask}
         clickableButtons={clickableButtons}

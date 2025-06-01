@@ -17,7 +17,7 @@ import person4 from "../../../../assets/img/person-4.jpg";
 import headerStyle from "./Header.module.css";
 import clsx from "clsx";
 
-export default function Header(props) {
+export default function Header({ loginUser }) {
   return (
     <header className={headerStyle.header}>
       <div className={headerStyle.topContainer}>
@@ -43,9 +43,12 @@ export default function Header(props) {
             <FontAwesomeIcon icon={faBell} className={headerStyle.notiIcon} />
           </div>
           <div className={headerStyle.userInfoContainer}>
-            <img src={userProfileImage} className={headerStyle.profileImage} />
+            <img
+              src={loginUser.imageUrl}
+              className={headerStyle.profileImage}
+            />
             <div className={headerStyle.username}>
-              John Alby{" "}
+              {loginUser.name}{" "}
               <FontAwesomeIcon
                 icon={faAngleDown}
                 className={headerStyle.downArrow}

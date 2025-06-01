@@ -1,4 +1,5 @@
 import {
+  getUserInfo,
   getProjectsByOwner,
   getAllTasksByProjectId,
   getToDoTasksByTaskId,
@@ -25,6 +26,7 @@ const buttonName = {
 let childForm;
 
 export default function Dashboard() {
+  const [loginUser, setLoginUser] = useState({});
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState({
@@ -40,6 +42,19 @@ export default function Dashboard() {
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
   const [selectedTask, setSelectedTask] = useState({});
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const user = auth.currentUser;
+        const userInfo = await getUserInfo(user.uid);
+        setLoginUser(userInfo);
+      } catch (error) {
+        console.error("Error fetching userInfo:", error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
 
   useEffect(() => {
     const fetchProjectsAndTasks = async () => {
@@ -143,6 +158,7 @@ export default function Dashboard() {
       />
       {!isViewInTaskDetailPage ? (
         <HomePage
+          loginUser={loginUser}
           onClickNewTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
           seperateTasks={tasks}
