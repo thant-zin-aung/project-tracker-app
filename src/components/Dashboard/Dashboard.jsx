@@ -16,11 +16,13 @@ import { NewFormContainer } from "../Forms/NewFormContainer.jsx";
 import { NewProjectForm } from "../Forms/NewProjectForm.jsx";
 import { NewToDoTaskForm } from "../Forms/NewToDoTaskForm.jsx";
 import { TaskDetailPage } from "../Pages/TaskDetailPage/TaskDetailPage.jsx";
+import { InviteUserForm } from "../Forms/InviteUserForm.jsx";
 
 const buttonName = {
   NEW_PROJECT: "new-project",
   NEW_TASK: "new-task",
   NEW_TODO_TASK: "new-todo-task",
+  INVITE_USER_FORM: "invite-user-form",
 };
 
 let childForm;
@@ -136,6 +138,16 @@ export default function Dashboard() {
             }
             selectedTaskId={selectedTaskId}
             refreshTodoTask={refreshTodoTask}
+          />
+        );
+        break;
+      case buttonName.INVITE_USER_FORM:
+        childForm = (
+          <InviteUserForm
+            onClickClose={() =>
+              handleCloseNewFormContainer(buttonName.INVITE_USER_FORM)
+            }
+            refreshTasks={refreshTask}
           />
         );
         break;

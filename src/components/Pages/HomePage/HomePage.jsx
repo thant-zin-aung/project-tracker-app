@@ -12,7 +12,11 @@ export function HomePage({
 }) {
   return (
     <div className={PageStyle.page}>
-      <Header loginUser={loginUser} />
+      <Header
+        loginUser={loginUser}
+        onClickInviteUser={onClickNewTask}
+        clickableButtons={clickableButtons}
+      />
       <TaskContainer
         onClickNewTask={onClickNewTask}
         clickableButtons={clickableButtons}

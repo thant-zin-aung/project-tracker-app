@@ -17,7 +17,14 @@ import person4 from "../../../../assets/img/person-4.jpg";
 import headerStyle from "./Header.module.css";
 import clsx from "clsx";
 
-export default function Header({ loginUser }) {
+export default function Header({
+  loginUser,
+  onClickInviteUser,
+  clickableButtons,
+}) {
+  function handleInviteUser() {
+    onClickInviteUser(clickableButtons.INVITE_USER_FORM);
+  }
   return (
     <header className={headerStyle.header}>
       <div className={headerStyle.topContainer}>
@@ -83,7 +90,10 @@ export default function Header({ loginUser }) {
               4
             </div>
           </div>
-          <div className={headerStyle.invitePeopleContainer}>
+          <div
+            className={headerStyle.invitePeopleContainer}
+            onClick={handleInviteUser}
+          >
             <FontAwesomeIcon
               icon={faUserPlus}
               className={headerStyle.addPeopleIcon}
