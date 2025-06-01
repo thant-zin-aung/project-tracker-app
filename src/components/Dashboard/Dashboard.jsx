@@ -4,6 +4,7 @@ import {
   getToDoTasksByTaskId,
   getTaskById,
   getTasksByProjectSeparated,
+  getTasksByUserSeparated,
 } from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
@@ -54,13 +55,14 @@ export default function Dashboard() {
   }, [refreshTrigger]);
 
   useEffect(() => {
-    if (!selectedProjectId) return;
     const fetchTasks = async () => {
       try {
-        // const tasks = await getAllTasksByProjectId(selectedProjectId);
-        const seperateTasks = await getTasksByProjectSeparated(
-          selectedProjectId
-        );
+        let seperateTasks;
+        if (!selectedProjectId) {
+          seperateTasks = await getTasksByUserSeparated(auth.currentUser.uid);
+        } else {
+          seperateTasks = await getTasksByProjectSeparated(selectedProjectId);
+        }
         setTasks(seperateTasks);
       } catch (error) {
         console.error("Error fetching projects:", error);

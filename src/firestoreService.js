@@ -255,3 +255,62 @@ export async function getTasksByProjectSeparated(projectId) {
 
   return { toDoTasks, inProgressTasks, doneTasks };
 }
+
+export async function getTasksByUserSeparated(userId) {
+  try {
+    const projectsRef = collection(db, "projects");
+    const qProjects = query(projectsRef, where("ownerId", "==", userId));
+    const projectsSnapshot = await getDocs(qProjects);
+    const projectIds = projectsSnapshot.docs.map((doc) => doc.id);
+
+    if (projectIds.length === 0) {
+      return { toDoTasks: [], inProgressTasks: [], doneTasks: [] };
+    }
+
+    const tasksRef = collection(db, "tasks");
+    const qTasks = query(
+      tasksRef,
+      where("projectId", "in", projectIds),
+      orderBy("createdAt", "desc")
+    );
+    const tasksSnapshot = await getDocs(qTasks);
+    const tasks = tasksSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const taskTodoPromises = tasks.map(async (task) => {
+      const todoTasks = await getToDoTasksByTaskId(task.id);
+      return { task, todoTasks };
+    });
+
+    const taskTodoResults = await Promise.all(taskTodoPromises);
+
+    const toDoTasks = [];
+    const inProgressTasks = [];
+    const doneTasks = [];
+
+    for (const { task, todoTasks } of taskTodoResults) {
+      if (todoTasks.length === 0) {
+        toDoTasks.push(task);
+      } else {
+        const allFinished = todoTasks.every((todo) => todo.isFinish === true);
+        const allNotFinished = todoTasks.every(
+          (todo) => todo.isFinish === false
+        );
+        if (allFinished) {
+          doneTasks.push(task);
+        } else if (allNotFinished) {
+          toDoTasks.push(task);
+        } else {
+          inProgressTasks.push(task);
+        }
+      }
+    }
+
+    return { toDoTasks, inProgressTasks, doneTasks };
+  } catch (error) {
+    console.error("Error fetching tasks by user:", error);
+    throw error;
+  }
+}
