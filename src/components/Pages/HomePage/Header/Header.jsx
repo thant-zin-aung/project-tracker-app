@@ -1,3 +1,5 @@
+import { signOut } from "firebase/auth";
+import { auth } from "../../../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -49,7 +51,10 @@ export default function Header(props) {
                 className={headerStyle.downArrow}
               />
             </div>
-            <button className={headerStyle.logoutButton}>
+            <button
+              className={headerStyle.logoutButton}
+              onClick={() => signOut(auth)}
+            >
               LOGOUT{" "}
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
