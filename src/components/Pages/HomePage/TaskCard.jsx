@@ -91,7 +91,8 @@ const Card = styled.div`
   }
   .progress-container .current-progress {
     height: 100%;
-    width: 30%; // change dynamically
+    width: ${({ $progressPercent }) =>
+      $progressPercent + "%"}; // change dynamically
     background-color: ${({ $statusColor }) => $statusColor};
   }
   & .bottom-wrapper {
@@ -143,6 +144,7 @@ export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
     <Card
       $statusColor={taskStatusColor[task.status] || taskStatusColor.default}
       onClick={handleOnClickTaskCard}
+      $progressPercent={task.progressPercent}
     >
       <div className="title-container">
         <div className="left-container">

@@ -228,6 +228,18 @@ export async function getTasksByProjectSeparated(projectId) {
 
   const taskTodoPromises = tasks.map(async (task) => {
     const todoTasks = await getToDoTasksByTaskId(task.id);
+    const totalTodos = todoTasks.length;
+    const finishedTodos = todoTasks.filter(
+      (todo) => todo.isFinish === true
+    ).length;
+
+    const progressPercent =
+      totalTodos === 0 ? 0 : Math.round((finishedTodos / totalTodos) * 100);
+
+    task.totalTodos = totalTodos;
+    task.finishedTodos = finishedTodos;
+    task.progressPercent = progressPercent;
+
     return { task, todoTasks };
   });
 
@@ -281,6 +293,18 @@ export async function getTasksByUserSeparated(userId) {
 
     const taskTodoPromises = tasks.map(async (task) => {
       const todoTasks = await getToDoTasksByTaskId(task.id);
+      const totalTodos = todoTasks.length;
+      const finishedTodos = todoTasks.filter(
+        (todo) => todo.isFinish === true
+      ).length;
+
+      const progressPercent =
+        totalTodos === 0 ? 0 : Math.round((finishedTodos / totalTodos) * 100);
+
+      task.totalTodos = totalTodos;
+      task.finishedTodos = finishedTodos;
+      task.progressPercent = progressPercent;
+
       return { task, todoTasks };
     });
 

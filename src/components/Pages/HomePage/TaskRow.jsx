@@ -52,7 +52,6 @@ const RowTitleContainer = styled.div`
 
 export function TaskRow({
   onClickNewTask,
-  taskImage,
   taskRowTitle,
   tasks,
   showTaskDetailPage,
