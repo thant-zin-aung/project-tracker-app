@@ -24,6 +24,7 @@ const InviteForm = styled.div`
     gap: 15px;
     height: 35px;
     margin-bottom: 10px;
+    position: relative;
   }
   .search-container input {
     width: 80%;
@@ -49,6 +50,22 @@ const InviteForm = styled.div`
   .search-container .add-button:hover {
     box-shadow: 1px 1px 8px 1px #8188ed;
   }
+  .search-result-container {
+    width: calc(80% - 13px);
+    /* height: 200px; */
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px 1px #dcdcdc;
+    padding: 10px;
+  }
+
   .selected-root-container {
     width: 100%;
     min-height: 300px;
@@ -56,22 +73,26 @@ const InviteForm = styled.div`
     overflow-y: auto;
     padding-right: 10px;
   }
-  .selected-root-container::-webkit-scrollbar {
+  .selected-root-container::-webkit-scrollbar,
+  .search-result-container::-webkit-scrollbar {
     width: 5px;
   }
 
-  .selected-root-container::-webkit-scrollbar-track {
+  .selected-root-container::-webkit-scrollbar-track,
+  .search-result-container::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 1px;
   }
 
-  .selected-root-container::-webkit-scrollbar-thumb {
+  .selected-root-container::-webkit-scrollbar-thumb,
+  .search-result-container::-webkit-scrollbar-thumb {
     background-color: #a0a0a0;
     border: 1px solid #f1f1f1;
     width: 0px;
   }
 
-  .selected-root-container::-webkit-scrollbar-thumb:hover {
+  .selected-root-container::-webkit-scrollbar-thumb:hover,
+  .search-result-container::-webkit-scrollbar-thumb:hover {
     background-color: #bbbbbb;
   }
 `;
@@ -87,6 +108,23 @@ export function InviteUserForm({ onClickClose, refreshTasks }) {
       <div className="search-container">
         <input type="text" placeholder="Search users to invite..." />
         <button className="add-button">Invite Users</button>
+        <div className="search-result-container">
+          <AvailableUser
+            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+            userName="John Alby"
+            userEmail="johnalby.dev@gmail.com"
+          />
+          <AvailableUser
+            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+            userName="John Alby"
+            userEmail="johnalby.dev@gmail.com"
+          />
+          <AvailableUser
+            imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+            userName="John Alby"
+            userEmail="johnalby.dev@gmail.com"
+          />
+        </div>
       </div>
       <div className="selected-root-container">
         <SelectedUser
@@ -192,5 +230,52 @@ export function SelectedUser({ imageUrl, userName, userEmail }) {
       </div>
       <FontAwesomeIcon icon={faTrashCan} className="delete-icon" />
     </SelectedUserContainer>
+  );
+}
+
+const AvailableUserContainer = styled.div`
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ebebeb;
+  }
+
+  .left-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+  .left-container img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-right: 15px;
+  }
+  .left-container .user {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .email {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+`;
+export function AvailableUser({ imageUrl, userName, userEmail }) {
+  return (
+    <AvailableUserContainer>
+      <div className="left-container">
+        <img src={imageUrl} alt="User image" />
+        <div className="user">{userName}</div>
+      </div>
+      <div className="email">{userEmail}</div>
+    </AvailableUserContainer>
   );
 }
