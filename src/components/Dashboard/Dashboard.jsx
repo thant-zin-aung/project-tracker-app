@@ -221,6 +221,7 @@ export default function Dashboard() {
           selectedTask={selectedTask}
           todoTasks={todoTasks}
           refreshTodoTask={refreshTodoTask}
+          loginUser={loginUser}
         />
       )}
 

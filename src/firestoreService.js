@@ -1,6 +1,6 @@
 // firestoreService.js
 
-import { db } from "./firebase";
+import { db, auth } from "./firebase";
 import {
   collection,
   addDoc,
@@ -203,6 +203,7 @@ export async function createTask(
       status,
       dueDate: dueDate ? dueDate : null,
       imageUrl: imageUrl || null,
+      contributors: [auth.currentUser.uid],
       createdAt: serverTimestamp(),
     };
 

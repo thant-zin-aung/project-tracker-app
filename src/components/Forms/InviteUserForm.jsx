@@ -113,13 +113,14 @@ export function InviteUserForm({
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isSearchBoxFocus, setIsSearchBoxFocus] = useState(false);
 
-  function handleInviteUserButton() {
+  async function handleInviteUserButton() {
     console.log(selectedProjectId + ":" + selectedUsers.map((user) => user.id));
     if (selectedUsers.length === 0) return;
-    addContributorIdsToProject(
+    await addContributorIdsToProject(
       selectedProjectId,
       selectedUsers.map((user) => user.id)
     );
+    onClickClose();
   }
 
   function handleOnClickAvailableUser(user) {

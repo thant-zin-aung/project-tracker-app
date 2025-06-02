@@ -501,6 +501,7 @@ export function TaskDetailPage({
   selectedTask,
   todoTasks,
   refreshTodoTask,
+  loginUser,
 }) {
   const priorityMap = {
     high: {
@@ -522,7 +523,7 @@ export function TaskDetailPage({
       <div className="left-wrapper">
         <div className="task-outline-container">
           <div className="left-container">
-            <h3>Good Morning, John Alby!</h3>
+            <h3>Good Morning, {loginUser.name}!</h3>
             <p>What do you plan to do today?</p>
           </div>
           <div className="right-container">
@@ -554,11 +555,11 @@ export function TaskDetailPage({
 
         <div className="profile-container">
           <div className="left-container">
-            <img src={userProfileImage} />
+            <img src={loginUser.imageUrl} />
             <div className="profile-info-container">
-              <h4>John Alby</h4>
+              <h4>{loginUser.name}</h4>
               <p>Software Engineer</p>
-              <p>johnalby.dev@gmail.com</p>
+              <p>{loginUser.email}</p>
             </div>
           </div>
           <div className="right-container">
