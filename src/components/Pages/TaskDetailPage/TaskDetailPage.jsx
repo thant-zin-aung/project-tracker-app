@@ -502,6 +502,7 @@ export function TaskDetailPage({
   todoTasks,
   refreshTodoTask,
   loginUser,
+  allUser,
 }) {
   const priorityMap = {
     high: {
@@ -518,6 +519,8 @@ export function TaskDetailPage({
     },
   };
 
+  let contributorPosCount = 0;
+
   return (
     <Container $taskImage={selectedTask.imageUrl}>
       <div className="left-wrapper">
@@ -528,7 +531,19 @@ export function TaskDetailPage({
           </div>
           <div className="right-container">
             <div className="contributor-container">
-              <img src={userProfileImage} />
+              {selectedTask?.contributors?.length > 0 &&
+                allUser
+                  .filter((user) => selectedTask.contributors.includes(user.id))
+                  .map((user) => (
+                    <img
+                      key={user.id}
+                      src={user.imageUrl}
+                      style={{
+                        transform: `translateX(calc(-10px * ${contributorPosCount++}))`,
+                      }}
+                    />
+                  ))}
+              {/* <img src={userProfileImage} />
               <img src={person2} style={{ transform: "translateX(-10px)" }} />
               <img
                 src={person1}
@@ -541,7 +556,7 @@ export function TaskDetailPage({
               <img
                 src={person3}
                 style={{ transform: "translateX(calc(-10px * 4))" }}
-              />
+              /> */}
             </div>
             <div className="total-contributor-container">
               <p>Total Contributor</p>
