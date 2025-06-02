@@ -13,6 +13,7 @@ import {
   doc,
   deleteDoc,
   serverTimestamp,
+  arrayUnion,
 } from "firebase/firestore";
 
 export async function getAllUsers() {
@@ -65,6 +66,26 @@ export async function createProject(
   return docRef.id;
 }
 
+export async function getProjectInfoByProjectId(projectId) {
+  try {
+    if (typeof projectId !== "string" || !projectId.trim()) {
+      throw new Error("Invalid projectId: must be a non-empty string");
+    }
+
+    const projectRef = doc(db, "projects", projectId);
+    const projectSnap = await getDoc(projectRef);
+
+    if (projectSnap.exists()) {
+      return { id: projectSnap.id, ...projectSnap.data() };
+    } else {
+      console.log("No project found with the given ID.");
+      return null;
+    }
+  } catch (error) {
+    console.log("Error fetching project info:", error);
+  }
+}
+
 export async function getAllProjects() {
   const projectsRef = collection(db, "projects");
   const q = query(projectsRef, orderBy("createdAt", "desc"));
@@ -100,6 +121,24 @@ export async function getProjectsByUser(userId) {
     projects.push({ id: doc.id, ...doc.data() });
   });
   return projects;
+}
+
+export async function addContributorIdsToProject(projectId, contributorIds) {
+  try {
+    const projectRef = doc(db, "projects", projectId);
+    const idsArray = Array.isArray(contributorIds)
+      ? contributorIds
+      : [contributorIds];
+
+    await updateDoc(projectRef, {
+      contributors: arrayUnion(...idsArray),
+    });
+
+    console.log("Contributor IDs added successfully!");
+  } catch (error) {
+    console.error("Error adding contributor IDs:", error);
+    throw error;
+  }
 }
 
 export async function updateProject(projectId, updates) {

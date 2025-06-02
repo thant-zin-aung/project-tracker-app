@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addContributorIdsToProject } from "../../firestoreService";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -101,9 +102,25 @@ const InviteForm = styled.div`
     background-color: #bbbbbb;
   }
 `;
-export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
+export function InviteUserForm({
+  onClickClose,
+  refreshTasks,
+  allUser,
+  loginUser,
+  selectedProjectId,
+  currentProject,
+}) {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isSearchBoxFocus, setIsSearchBoxFocus] = useState(false);
+
+  function handleInviteUserButton() {
+    console.log(selectedProjectId + ":" + selectedUsers.map((user) => user.id));
+    if (selectedUsers.length === 0) return;
+    addContributorIdsToProject(
+      selectedProjectId,
+      selectedUsers.map((user) => user.id)
+    );
+  }
 
   function handleOnClickAvailableUser(user) {
     setSelectedUsers((prevUsers) =>
@@ -123,11 +140,10 @@ export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
     e.stopPropagation();
     setIsSearchBoxFocus(true);
   }
+
   return (
-    <InviteForm
-      $isSearchBoxFocus={isSearchBoxFocus}
-      onClick={() => setIsSearchBoxFocus(false)}
-    >
+    <InviteForm onClick={() => setIsSearchBoxFocus(false)}>
+      {console.log(currentProject)}
       <h2 className="form-title">Invite New Contributor</h2>
       <p className="form-sub-title">
         Easily invite new contributors to join your project or platform,
@@ -140,21 +156,27 @@ export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
           placeholder="Search users to invite..."
           onClick={(e) => handleSearchBoxFocus(e)}
         />
-        <button className="add-button">Invite Users</button>
+        <button className="add-button" onClick={handleInviteUserButton}>
+          Invite Users
+        </button>
         <div
           className={`search-result-container ${
             isSearchBoxFocus ? "visible" : ""
           }`}
         >
-          {allUser.map((user) => (
-            <AvailableUser
-              key={user.id}
-              imageUrl={user.imageUrl}
-              userName={user.name}
-              userEmail={user.email}
-              onClickUser={() => handleOnClickAvailableUser(user)}
-            />
-          ))}
+          {allUser.map(
+            (user) =>
+              user.id !== loginUser.id &&
+              !currentProject.contributors.includes(user.id) && (
+                <AvailableUser
+                  key={user.id}
+                  imageUrl={user.imageUrl}
+                  userName={user.name}
+                  userEmail={user.email}
+                  onClickUser={() => handleOnClickAvailableUser(user)}
+                />
+              )
+          )}
         </div>
       </div>
       <div className="selected-root-container">

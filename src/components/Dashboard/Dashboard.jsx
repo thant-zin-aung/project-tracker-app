@@ -7,6 +7,7 @@ import {
   getTaskById,
   getTasksByProjectSeparated,
   getTasksByUserSeparated,
+  getProjectInfoByProjectId,
 } from "../../firestoreService";
 import { useEffect, useState } from "react";
 import { db, auth } from "../../firebase";
@@ -33,6 +34,7 @@ export default function Dashboard() {
   const [loginUser, setLoginUser] = useState({});
   const [showNewFormContainer, setShowNewFormContainer] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [currentProject, setCurrentProject] = useState({});
   const [tasks, setTasks] = useState({
     toDoTasks: [],
     inProgressTasks: [],
@@ -71,6 +73,20 @@ export default function Dashboard() {
     };
     fetchUserInfo();
   }, []);
+
+  useEffect(() => {
+    const fetchCurrentProjectInfo = async () => {
+      try {
+        const currentProjectInfo = await getProjectInfoByProjectId(
+          selectedProjectId
+        );
+        setCurrentProject(currentProjectInfo);
+      } catch (error) {
+        console.error("Error fetching current project info:", error);
+      }
+    };
+    fetchCurrentProjectInfo();
+  }, [selectedProjectId]);
 
   useEffect(() => {
     const fetchProjectsAndTasks = async () => {
@@ -163,6 +179,9 @@ export default function Dashboard() {
             }
             refreshTasks={refreshTask}
             allUser={allUser}
+            loginUser={loginUser}
+            selectedProjectId={selectedProjectId}
+            currentProject={currentProject}
           />
         );
         break;
