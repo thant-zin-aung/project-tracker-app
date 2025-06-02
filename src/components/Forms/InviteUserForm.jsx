@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -64,6 +65,7 @@ const InviteForm = styled.div`
     border-radius: 10px;
     box-shadow: 1px 1px 8px 1px #dcdcdc;
     padding: 10px;
+    display: ${($isSearchBoxFocus) => ($isSearchBoxFocus ? "block" : "none")};
   }
 
   .selected-root-container {
@@ -97,8 +99,33 @@ const InviteForm = styled.div`
   }
 `;
 export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [isSearchBoxFocus, setIsSearchBoxFocus] = useState(false);
+
+  function handleOnClickAvailableUser(user) {
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((prevUser) => prevUser.id).includes(user.id)
+        ? [...prevUsers]
+        : [...prevUsers, user]
+    );
+  }
+
+  function handleOnClickRemoveSelectedUser(selectedUser) {
+    setSelectedUsers((prevUsers) =>
+      prevUsers.filter((prevUser) => prevUser.id !== selectedUser.id)
+    );
+  }
+
+  function handleSearchBoxFocus(e) {
+    e.stopPropagation();
+    setIsSearchBoxFocus(true);
+  }
   return (
-    <InviteForm>
+    <InviteForm
+      $isSearchBoxFocus={isSearchBoxFocus}
+      onClick={() => setIsSearchBoxFocus(false)}
+    >
+      {console.log(isSearchBoxFocus)}
       <h2 className="form-title">Invite New Contributor</h2>
       <p className="form-sub-title">
         Easily invite new contributors to join your project or platform,
@@ -106,64 +133,34 @@ export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
         experience for the project.
       </p>
       <div className="search-container">
-        <input type="text" placeholder="Search users to invite..." />
+        <input
+          type="text"
+          placeholder="Search users to invite..."
+          onClick={(e) => handleSearchBoxFocus(e)}
+        />
         <button className="add-button">Invite Users</button>
         <div className="search-result-container">
           {allUser.map((user) => (
             <AvailableUser
+              key={user.id}
               imageUrl={user.imageUrl}
               userName={user.name}
               userEmail={user.email}
+              onClickUser={() => handleOnClickAvailableUser(user)}
             />
           ))}
         </div>
       </div>
       <div className="selected-root-container">
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
-        <SelectedUser
-          imageUrl="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-          userName="John Alby"
-          userEmail="johnalby.dev@gmail.com"
-        />
+        {selectedUsers.map((selectedUser) => (
+          <SelectedUser
+            key={selectedUser.id}
+            imageUrl={selectedUser.imageUrl}
+            userName={selectedUser.name}
+            userEmail={selectedUser.email}
+            onClickRemove={() => handleOnClickRemoveSelectedUser(selectedUser)}
+          />
+        ))}
       </div>
     </InviteForm>
   );
@@ -210,7 +207,7 @@ const SelectedUserContainer = styled.div`
   }
 `;
 
-export function SelectedUser({ imageUrl, userName, userEmail }) {
+export function SelectedUser({ imageUrl, userName, userEmail, onClickRemove }) {
   return (
     <SelectedUserContainer>
       <div className="user-info-container">
@@ -220,7 +217,11 @@ export function SelectedUser({ imageUrl, userName, userEmail }) {
           <div className="email">{userEmail}</div>
         </div>
       </div>
-      <FontAwesomeIcon icon={faTrashCan} className="delete-icon" />
+      <FontAwesomeIcon
+        icon={faTrashCan}
+        className="delete-icon"
+        onClick={onClickRemove}
+      />
     </SelectedUserContainer>
   );
 }
@@ -260,9 +261,9 @@ const AvailableUserContainer = styled.div`
     opacity: 0.7;
   }
 `;
-export function AvailableUser({ imageUrl, userName, userEmail }) {
+export function AvailableUser({ imageUrl, userName, userEmail, onClickUser }) {
   return (
-    <AvailableUserContainer>
+    <AvailableUserContainer onClick={onClickUser}>
       <div className="left-container">
         <img src={imageUrl} alt="User image" />
         <div className="user">{userName}</div>
