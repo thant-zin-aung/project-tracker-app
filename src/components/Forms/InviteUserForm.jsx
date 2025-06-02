@@ -65,7 +65,10 @@ const InviteForm = styled.div`
     border-radius: 10px;
     box-shadow: 1px 1px 8px 1px #dcdcdc;
     padding: 10px;
-    display: ${($isSearchBoxFocus) => ($isSearchBoxFocus ? "block" : "none")};
+    display: none;
+  }
+  .search-result-container.visible {
+    display: block;
   }
 
   .selected-root-container {
@@ -125,7 +128,6 @@ export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
       $isSearchBoxFocus={isSearchBoxFocus}
       onClick={() => setIsSearchBoxFocus(false)}
     >
-      {console.log(isSearchBoxFocus)}
       <h2 className="form-title">Invite New Contributor</h2>
       <p className="form-sub-title">
         Easily invite new contributors to join your project or platform,
@@ -139,7 +141,11 @@ export function InviteUserForm({ onClickClose, refreshTasks, allUser }) {
           onClick={(e) => handleSearchBoxFocus(e)}
         />
         <button className="add-button">Invite Users</button>
-        <div className="search-result-container">
+        <div
+          className={`search-result-container ${
+            isSearchBoxFocus ? "visible" : ""
+          }`}
+        >
           {allUser.map((user) => (
             <AvailableUser
               key={user.id}
