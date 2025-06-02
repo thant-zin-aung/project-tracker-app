@@ -3,6 +3,7 @@ import {
   getUserInfo,
   getProjectsByOwner,
   getAllTasksByProjectId,
+  getAllProjectsIncludingUser,
   getToDoTasksByTaskId,
   getTaskById,
   getTasksByProjectSeparated,
@@ -92,7 +93,7 @@ export default function Dashboard() {
     const fetchProjectsAndTasks = async () => {
       try {
         const user = auth.currentUser;
-        const myProjects = await getProjectsByOwner(user.uid);
+        const myProjects = await getAllProjectsIncludingUser(user.uid);
         setProjects(() => myProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);

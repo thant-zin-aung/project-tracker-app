@@ -143,7 +143,6 @@ export function InviteUserForm({
 
   return (
     <InviteForm onClick={() => setIsSearchBoxFocus(false)}>
-      {console.log(currentProject)}
       <h2 className="form-title">Invite New Contributor</h2>
       <p className="form-sub-title">
         Easily invite new contributors to join your project or platform,
@@ -164,19 +163,20 @@ export function InviteUserForm({
             isSearchBoxFocus ? "visible" : ""
           }`}
         >
-          {allUser.map(
-            (user) =>
-              user.id !== loginUser.id &&
-              !currentProject.contributors.includes(user.id) && (
-                <AvailableUser
-                  key={user.id}
-                  imageUrl={user.imageUrl}
-                  userName={user.name}
-                  userEmail={user.email}
-                  onClickUser={() => handleOnClickAvailableUser(user)}
-                />
-              )
-          )}
+          {selectedProjectId !== 0 &&
+            allUser.map(
+              (user) =>
+                user.id !== loginUser.id &&
+                !currentProject.contributors.includes(user.id) && (
+                  <AvailableUser
+                    key={user.id}
+                    imageUrl={user.imageUrl}
+                    userName={user.name}
+                    userEmail={user.email}
+                    onClickUser={() => handleOnClickAvailableUser(user)}
+                  />
+                )
+            )}
         </div>
       </div>
       <div className="selected-root-container">

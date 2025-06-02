@@ -82,7 +82,7 @@ export async function getProjectInfoByProjectId(projectId) {
       return null;
     }
   } catch (error) {
-    console.log("Error fetching project info:", error);
+    console.log("projectid is not string");
   }
 }
 
@@ -121,6 +121,42 @@ export async function getProjectsByUser(userId) {
     projects.push({ id: doc.id, ...doc.data() });
   });
   return projects;
+}
+
+export async function getAllProjectsIncludingUser(userId) {
+  try {
+    const projectsRef = collection(db, "projects");
+    // Query projects where ownerId is the userId
+    const qOwner = query(projectsRef, where("ownerId", "==", userId));
+    const ownerSnapshot = await getDocs(qOwner);
+    const ownerProjects = ownerSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    // Query projects where contributors array contains the userId
+    const qContributor = query(
+      projectsRef,
+      where("contributors", "array-contains", userId)
+    );
+    const contributorSnapshot = await getDocs(qContributor);
+    const contributorProjects = contributorSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    // Combine and remove duplicates if any (in case user is both owner and contributor)
+    const allProjectsMap = new Map();
+    [...ownerProjects, ...contributorProjects].forEach((project) => {
+      allProjectsMap.set(project.id, project);
+    });
+
+    const allProjects = Array.from(allProjectsMap.values());
+    return allProjects;
+  } catch (error) {
+    console.error("Error fetching all projects including user:", error);
+    throw error;
+  }
 }
 
 export async function addContributorIdsToProject(projectId, contributorIds) {
