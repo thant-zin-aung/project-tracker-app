@@ -21,7 +21,26 @@ const Card = styled.div`
   margin-bottom: 20px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  position: relative;
 
+  .menu-wrapper {
+    font-size: 13px;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 1px 1px 8px 1px #e7e7e7;
+    width: max-content;
+    border-radius: 5px;
+    position: absolute;
+    right: 10px;
+    bottom: -50px;
+  }
+  .menu-wrapper > div {
+    padding: 5px 0;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  .menu-wrapper > div:last-child {
+    border-bottom: none;
+  }
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -140,12 +159,20 @@ export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
     showTaskDetailPage();
     onChangeSelectedTaskId(task.id);
   }
+  function handleOnClickMenuButton(e) {
+    e.stopPropagation();
+    console.log("clicked on menu icon...");
+  }
   return (
     <Card
       $statusColor={taskStatusColor[task.status] || taskStatusColor.default}
       onClick={handleOnClickTaskCard}
       $progressPercent={task.progressPercent}
     >
+      <div className="menu-wrapper">
+        <div className="edit">Edit</div>
+        <div className="contribute">Contribute</div>
+      </div>
       <div className="title-container">
         <div className="left-container">
           <FontAwesomeIcon
@@ -195,7 +222,11 @@ export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
             style={{ transform: "translateX(calc(-10px * 4))" }}
           />
         </div>
-        <FontAwesomeIcon icon={faEllipsis} className="menu-icon" />
+        <FontAwesomeIcon
+          icon={faEllipsis}
+          className="menu-icon"
+          onClick={(e) => handleOnClickMenuButton(e)}
+        />
       </div>
     </Card>
   );
