@@ -11,6 +11,7 @@ import person1 from "../../../assets/img/person-1.jpg";
 import person2 from "../../../assets/img/person-2.jpg";
 import person3 from "../../../assets/img/person-3.jpg";
 import person4 from "../../../assets/img/person-4.jpg";
+import { useState } from "react";
 
 const Card = styled.div`
   width: 100%;
@@ -33,6 +34,10 @@ const Card = styled.div`
     position: absolute;
     right: 10px;
     bottom: -50px;
+    display: none;
+  }
+  .menu-wrapper.visible {
+    display: block;
   }
   .menu-wrapper > div {
     padding: 5px 0;
@@ -144,12 +149,24 @@ function calculateDaysLeft(dueDateString) {
   return diffDays;
 }
 
-export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
+export function TaskCard({
+  loginUser,
+  allUser,
+  task,
+  showTaskDetailPage,
+  onChangeSelectedTaskId,
+  setIsCardMenuVisible,
+  isCardMenuVisible,
+}) {
+  function handleContributeButton() {
+    if (task.contributors.includes(loginUser.id)) return;
+  }
   const taskStatusColor = {
     important: "#3e3ab4",
     irrelevant: "#ffc260",
     default: "#ced5de",
   };
+
   const calculatedDueDateDays = calculateDaysLeft(task.dueDate);
   let dueDateLabel =
     calculatedDueDateDays < 0
@@ -161,7 +178,7 @@ export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
   }
   function handleOnClickMenuButton(e) {
     e.stopPropagation();
-    console.log("clicked on menu icon...");
+    // setIsCardMenuVisible(true);
   }
   return (
     <Card
@@ -169,9 +186,19 @@ export function TaskCard({ task, showTaskDetailPage, onChangeSelectedTaskId }) {
       onClick={handleOnClickTaskCard}
       $progressPercent={task.progressPercent}
     >
-      <div className="menu-wrapper">
+      <div
+        className={isCardMenuVisible ? "menu-wrapper visible" : "menu-wrapper"}
+      >
         <div className="edit">Edit</div>
-        <div className="contribute">Contribute</div>
+        <div
+          className="contribute"
+          style={{
+            opacity: !task.contributors.includes(loginUser.id) ? 1 : 0.3,
+          }}
+          onClick={handleContributeButton}
+        >
+          Contribute
+        </div>
       </div>
       <div className="title-container">
         <div className="left-container">

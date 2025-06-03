@@ -51,11 +51,15 @@ const RowTitleContainer = styled.div`
 `;
 
 export function TaskRow({
+  loginUser,
+  allUser,
   onClickNewTask,
   taskRowTitle,
   tasks,
   showTaskDetailPage,
   onChangeSelectedTaskId,
+  setIsCardMenuVisible,
+  isCardMenuVisible,
 }) {
   return (
     <RowContainer>
@@ -79,6 +83,10 @@ export function TaskRow({
           task={task}
           showTaskDetailPage={showTaskDetailPage}
           onChangeSelectedTaskId={onChangeSelectedTaskId}
+          setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
+          isCardMenuVisible={isCardMenuVisible}
+          loginUser={loginUser}
+          allUser={allUser}
         />
       ))}
     </RowContainer>

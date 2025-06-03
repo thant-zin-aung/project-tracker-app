@@ -49,6 +49,7 @@ export default function Dashboard() {
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
   const [selectedTask, setSelectedTask] = useState({});
+  const [isCardMenuVisible, setIsCardMenuVisible] = useState(false);
 
   useEffect(() => {
     const fetchAllUserInfo = async () => {
@@ -193,7 +194,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main>
+    <main onClick={() => setIsCardMenuVisible(false)}>
       <SideBar
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
@@ -206,6 +207,8 @@ export default function Dashboard() {
       {!isViewInTaskDetailPage ? (
         <HomePage
           loginUser={loginUser}
+          allUser={allUser}
+          currentProject={currentProject}
           onClickNewTask={handleCloseNewFormContainer}
           clickableButtons={buttonName}
           seperateTasks={tasks}
@@ -213,6 +216,8 @@ export default function Dashboard() {
           onChangeSelectedTaskId={(taskId) => {
             setSelectedTaskId(taskId);
           }}
+          setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
+          isCardMenuVisible={isCardMenuVisible}
         />
       ) : (
         <TaskDetailPage

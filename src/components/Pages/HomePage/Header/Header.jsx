@@ -19,6 +19,8 @@ import clsx from "clsx";
 
 export default function Header({
   loginUser,
+  allUser,
+  currentProject,
   onClickInviteUser,
   clickableButtons,
 }) {
@@ -77,22 +79,44 @@ export default function Header({
       <div className={headerStyle.bottomContainer}>
         <div className={headerStyle.leftContainer}>
           <div className={headerStyle.peopleContainer}>
-            <img src={person1} className={headerStyle.peopleIcon} />
+            {currentProject?.contributors?.length > 0 &&
+              allUser
+                .filter((user) => currentProject.contributors.includes(user.id))
+                .slice(0, 4)
+                .map((user) => (
+                  <img
+                    key={user.id}
+                    src={user.imageUrl}
+                    className={headerStyle.peopleIcon}
+                  />
+                ))}
+            {/* <img src={person1} className={headerStyle.peopleIcon} />
             <img src={person2} className={headerStyle.peopleIcon} />
             <img src={person3} className={headerStyle.peopleIcon} />
-            <img src={person4} className={headerStyle.peopleIcon} />
-            <div
-              className={clsx(
-                headerStyle.remainingPeople,
-                headerStyle.peopleIcon
-              )}
-            >
-              4
-            </div>
+            <img src={person4} className={headerStyle.peopleIcon} /> */}
+            {currentProject?.contributors?.length - 4 > 0 && (
+              <div
+                className={clsx(
+                  headerStyle.remainingPeople,
+                  headerStyle.peopleIcon
+                )}
+              >
+                {currentProject.contributors.length - 4 <= 0
+                  ? 0
+                  : currentProject.contributors.length - 4}
+              </div>
+            )}
           </div>
           <div
             className={headerStyle.invitePeopleContainer}
             onClick={handleInviteUser}
+            style={{
+              transform: `translateX(-${
+                currentProject?.contributors?.length === 1
+                  ? 0
+                  : currentProject?.contributors?.length + 0.5
+              }0px)`,
+            }}
           >
             <FontAwesomeIcon
               icon={faUserPlus}
