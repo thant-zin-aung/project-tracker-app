@@ -79,7 +79,7 @@ const ProjectForm = styled.div`
   }
 `;
 
-export function NewProjectForm({ onClickClose }) {
+export function NewProjectForm({ onClickClose, refreshProjects }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [contributors, setContributors] = useState(""); // Comma-separated

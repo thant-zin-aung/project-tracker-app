@@ -52,6 +52,12 @@ export default function Dashboard() {
   const [selectedTask, setSelectedTask] = useState({});
   const [isCardMenuVisible, setIsCardMenuVisible] = useState(false);
 
+  window.addEventListener("popstate", function (event) {
+    if (isViewInTaskDetailPage) {
+      setIsViewInTaskDetailPage(false);
+    }
+  });
+
   useEffect(() => {
     const fetchAllUserInfo = async () => {
       try {
