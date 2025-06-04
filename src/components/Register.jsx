@@ -163,7 +163,7 @@ function Register() {
       await updateProfile(user, { displayName: name });
 
       await setDoc(doc(db, "users", user.uid), { name, email, imageUrl });
-
+      window.location.reload();
       navigate("/dashboard");
     } catch (error) {
       console.error("Registration failed:", error.message);

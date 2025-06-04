@@ -42,6 +42,7 @@ export default function Dashboard() {
     doneTasks: [],
   });
   const [todoTasks, setTodoTasks] = useState([]);
+  const [loginUserRefresh, setLoginUserRefresh] = useState(0);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [taskRefreshTrigger, setTaskRefreshTrigger] = useState(0);
   const [todoTaskRefreshTrigger, setTodoTaskRefreshTrigger] = useState(0);
