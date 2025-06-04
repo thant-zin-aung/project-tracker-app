@@ -186,7 +186,7 @@ export default function Dashboard() {
             onClickClose={() =>
               handleCloseNewFormContainer(buttonName.INVITE_USER_FORM)
             }
-            refreshTasks={refreshTask}
+            refreshProjects={refreshProjects}
             allUser={allUser}
             loginUser={loginUser}
             selectedProjectId={selectedProjectId}

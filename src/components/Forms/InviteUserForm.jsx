@@ -104,7 +104,7 @@ const InviteForm = styled.div`
 `;
 export function InviteUserForm({
   onClickClose,
-  refreshTasks,
+  refreshProjects,
   allUser,
   loginUser,
   selectedProjectId,
@@ -120,7 +120,9 @@ export function InviteUserForm({
       selectedProjectId,
       selectedUsers.map((user) => user.id)
     );
+    setSelectedUsers([]);
     onClickClose();
+    refreshProjects();
   }
 
   function handleOnClickAvailableUser(user) {
@@ -294,7 +296,7 @@ export function AvailableUser({ imageUrl, userName, userEmail, onClickUser }) {
   return (
     <AvailableUserContainer onClick={onClickUser}>
       <div className="left-container">
-        <img src={imageUrl} alt="User image" />
+        <img src={imageUrl !== "" ? imageUrl : null} alt="User image" />
         <div className="user">{userName}</div>
       </div>
       <div className="email">{userEmail}</div>

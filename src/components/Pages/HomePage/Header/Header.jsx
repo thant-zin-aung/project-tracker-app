@@ -101,6 +101,7 @@ export default function Header({
                   headerStyle.peopleIcon
                 )}
               >
+                +
                 {currentProject.contributors.length - 4 <= 0
                   ? 0
                   : currentProject.contributors.length - 4}
