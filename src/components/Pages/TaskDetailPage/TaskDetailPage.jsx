@@ -562,7 +562,11 @@ export function TaskDetailPage({
               <p>Total Contributor</p>
               <div className="total-contributor">
                 <FontAwesomeIcon icon={faUser} className="user-icon" />{" "}
-                <span>23</span>
+                <span>
+                  {selectedTask?.contributors?.length > 0
+                    ? selectedTask?.contributors?.length
+                    : 0}
+                </span>
               </div>
             </div>
           </div>
