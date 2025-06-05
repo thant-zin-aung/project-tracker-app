@@ -184,6 +184,7 @@ export function TaskCard({
     e.stopPropagation();
     setIsCardMenuVisible((prev) => !prev);
   }
+  let contributorCount = 0;
   return (
     <Card
       $statusColor={taskStatusColor[task.status] || taskStatusColor.default}
@@ -238,7 +239,18 @@ export function TaskCard({
       </div>
       <div className="bottom-wrapper">
         <div className="contributor-container">
-          <img src={userProfileImage} />
+          {allUser
+            .filter((user) => task.contributors.includes(user.id))
+            .map((user) => (
+              <img
+                key={user.id}
+                src={user.imageUrl}
+                style={{
+                  transform: `translateX(calc(-10px * ${contributorCount++}))`,
+                }}
+              />
+            ))}
+          {/* <img src={userProfileImage} />
           <img src={person2} style={{ transform: "translateX(-10px)" }} />
           <img
             src={person1}
@@ -251,7 +263,7 @@ export function TaskCard({
           <img
             src={person3}
             style={{ transform: "translateX(calc(-10px * 4))" }}
-          />
+          /> */}
         </div>
         <FontAwesomeIcon
           icon={faEllipsis}
