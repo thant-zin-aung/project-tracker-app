@@ -50,7 +50,6 @@ export default function Dashboard() {
   const [isViewInTaskDetailPage, setIsViewInTaskDetailPage] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(0);
   const [selectedTask, setSelectedTask] = useState({});
-  const [isCardMenuVisible, setIsCardMenuVisible] = useState(false);
 
   window.addEventListener("popstate", function (event) {
     if (isViewInTaskDetailPage) {
@@ -201,7 +200,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main onClick={() => setIsCardMenuVisible(false)}>
+    <main>
       <SideBar
         onClickNewProject={handleCloseNewFormContainer}
         clickableButtons={buttonName}
@@ -223,8 +222,6 @@ export default function Dashboard() {
           onChangeSelectedTaskId={(taskId) => {
             setSelectedTaskId(taskId);
           }}
-          setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-          isCardMenuVisible={isCardMenuVisible}
         />
       ) : (
         <TaskDetailPage

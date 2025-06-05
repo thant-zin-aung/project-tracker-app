@@ -58,8 +58,6 @@ export function TaskRow({
   tasks,
   showTaskDetailPage,
   onChangeSelectedTaskId,
-  setIsCardMenuVisible,
-  isCardMenuVisible,
 }) {
   return (
     <RowContainer>
@@ -83,8 +81,6 @@ export function TaskRow({
           task={task}
           showTaskDetailPage={showTaskDetailPage}
           onChangeSelectedTaskId={onChangeSelectedTaskId}
-          setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-          isCardMenuVisible={isCardMenuVisible}
           loginUser={loginUser}
           allUser={allUser}
         />

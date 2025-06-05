@@ -14,8 +14,6 @@ export function TaskContainer({
   seperateTasks,
   showTaskDetailPage,
   onChangeSelectedTaskId,
-  setIsCardMenuVisible,
-  isCardMenuVisible,
 }) {
   const { toDoTasks, inProgressTasks, doneTasks } = seperateTasks;
   return (
@@ -30,8 +28,6 @@ export function TaskContainer({
         tasks={toDoTasks}
         showTaskDetailPage={showTaskDetailPage}
         onChangeSelectedTaskId={onChangeSelectedTaskId}
-        setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-        isCardMenuVisible={isCardMenuVisible}
         loginUser={loginUser}
         allUser={allUser}
       />
@@ -42,8 +38,6 @@ export function TaskContainer({
         tasks={inProgressTasks}
         showTaskDetailPage={showTaskDetailPage}
         onChangeSelectedTaskId={onChangeSelectedTaskId}
-        setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-        isCardMenuVisible={isCardMenuVisible}
         loginUser={loginUser}
         allUser={allUser}
       />
@@ -54,8 +48,6 @@ export function TaskContainer({
         tasks={doneTasks}
         showTaskDetailPage={showTaskDetailPage}
         onChangeSelectedTaskId={onChangeSelectedTaskId}
-        setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-        isCardMenuVisible={isCardMenuVisible}
         loginUser={loginUser}
         allUser={allUser}
       />

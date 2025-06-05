@@ -216,6 +216,19 @@ export async function createTask(
   }
 }
 
+export async function addContributorToTask(taskId, contributorId) {
+  try {
+    const taskRef = doc(db, "tasks", taskId);
+    await updateDoc(taskRef, {
+      contributors: arrayUnion(contributorId),
+    });
+    console.log("Contributor added to task successfully.");
+  } catch (error) {
+    console.error("Error adding contributor to task:", error);
+    throw error;
+  }
+}
+
 export async function getAllTasksByProjectId(projectId) {
   try {
     const tasksRef = collection(db, "tasks");

@@ -4,6 +4,7 @@ import {
   faPaperclip,
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
+import { addContributorToTask } from "../../../firestoreService";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import styled from "styled-components";
 import userProfileImage from "../../../assets/img/user-profile.jpg";
@@ -35,6 +36,7 @@ const Card = styled.div`
     right: 10px;
     bottom: -50px;
     display: none;
+    z-index: 100;
   }
   .menu-wrapper.visible {
     display: block;
@@ -47,7 +49,7 @@ const Card = styled.div`
     border-bottom: none;
   }
   &:hover {
-    transform: translateY(-10px);
+    /* transform: translateY(-10px); */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
@@ -155,11 +157,13 @@ export function TaskCard({
   task,
   showTaskDetailPage,
   onChangeSelectedTaskId,
-  setIsCardMenuVisible,
-  isCardMenuVisible,
 }) {
-  function handleContributeButton() {
+  const [isCardMenuVisible, setIsCardMenuVisible] = useState(false);
+  function handleContributeButton(e) {
+    e.stopPropagation();
     if (task.contributors.includes(loginUser.id)) return;
+    addContributorToTask(task.id, loginUser.id);
+    setIsCardMenuVisible((prev) => !prev);
   }
   const taskStatusColor = {
     important: "#3e3ab4",
@@ -178,7 +182,7 @@ export function TaskCard({
   }
   function handleOnClickMenuButton(e) {
     e.stopPropagation();
-    // setIsCardMenuVisible(true);
+    setIsCardMenuVisible((prev) => !prev);
   }
   return (
     <Card
@@ -195,7 +199,7 @@ export function TaskCard({
           style={{
             opacity: !task.contributors.includes(loginUser.id) ? 1 : 0.3,
           }}
-          onClick={handleContributeButton}
+          onClick={(e) => handleContributeButton(e)}
         >
           Contribute
         </div>

@@ -11,8 +11,6 @@ export function HomePage({
   seperateTasks,
   showTaskDetailPage,
   onChangeSelectedTaskId,
-  setIsCardMenuVisible,
-  isCardMenuVisible,
 }) {
   return (
     <div className={PageStyle.page}>
@@ -29,8 +27,6 @@ export function HomePage({
         seperateTasks={seperateTasks}
         showTaskDetailPage={showTaskDetailPage}
         onChangeSelectedTaskId={onChangeSelectedTaskId}
-        setIsCardMenuVisible={(flag) => setIsCardMenuVisible(flag)}
-        isCardMenuVisible={isCardMenuVisible}
         loginUser={loginUser}
         allUser={allUser}
         currentProject={currentProject}
