@@ -8,6 +8,10 @@ const RowContainer = styled.div`
   flex-direction: column;
   width: 33.3%;
   margin-top: 30px;
+
+  @media (max-width: 1920px) {
+    margin-top: 40px;
+  }
 `;
 
 const RowTitleContainer = styled.div`
@@ -47,6 +51,16 @@ const RowTitleContainer = styled.div`
     font-size: 13px;
     color: #333cad;
     margin-right: 5px;
+  }
+
+  @media (max-width: 1920px) {
+    .left-container .title {
+      font-size: 17px;
+    }
+    .right-container .add-new-task-button {
+      padding: 9px 18px;
+      font-size: 13px;
+    }
   }
 `;
 
