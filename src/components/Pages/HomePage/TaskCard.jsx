@@ -139,6 +139,30 @@ const Card = styled.div`
     color: grey;
     cursor: pointer;
   }
+
+  @media (max-width: 1920px) {
+    .title-container .left-container .status-icon {
+      font-size: 6px;
+    }
+    .title-container .left-container .card-title {
+      font-size: 15px;
+    }
+    .title-container .right-container .pin-icon {
+      font-size: 14px;
+    }
+    .desc-container {
+      font-size: 14px;
+    }
+    .task-image {
+      height: 125px;
+    }
+    .due-day-container .clock-icon {
+      font-size: 13px;
+    }
+    .due-day-container {
+      font-size: 12px;
+    }
+  }
 `;
 
 function calculateDaysLeft(dueDateString) {
