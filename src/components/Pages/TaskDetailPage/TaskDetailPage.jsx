@@ -443,6 +443,98 @@ const Container = styled.div`
     height: 100%;
     object-fit: cover;
   } */
+  @media (max-width: 1920px) {
+    .task-outline-container,
+    .profile-container {
+      height: 100px;
+      min-height: 100px;
+    }
+    .task-outline-container .left-container h3 {
+      font-size: 23px;
+    }
+    .task-outline-container .left-container p {
+      font-size: 12px;
+    }
+    .task-outline-container .right-container .total-contributor-container p {
+      font-size: 13px;
+    }
+    .task-outline-container
+      .right-container
+      .total-contributor-container
+      .total-contributor {
+      display: flex;
+      align-items: center;
+      padding: 2px 10px 1px 10px;
+    }
+    .task-outline-container
+      .right-container
+      .total-contributor-container
+      .total-contributor
+      .user-icon {
+      margin-bottom: 2px;
+    }
+    .profile-container img {
+      width: 60px;
+      height: 60px;
+    }
+    .profile-info-container h4 {
+      font-size: 15px;
+    }
+    .profile-info-container p {
+      font-size: 12px;
+    }
+    .profile-container .right-container > div {
+      font-size: 14px;
+    }
+    .task-detail-container .title-container .left {
+      font-size: 20px;
+    }
+    .task-detail-container .title-container .right button {
+      padding: 11px 18px;
+      font-size: 14px;
+    }
+    .task-detail-container .title-container .right .focus-icon,
+    .task-detail-container .title-container .right .add-task-icon {
+      font-size: 15px;
+    }
+    .focus-mode-container {
+      padding: 20px;
+    }
+    .focus-mode-container > .title {
+      font-size: 27px;
+    }
+    .focus-mode-container .hint {
+      font-size: 14px;
+    }
+    .focus-mode-container .time-container .time {
+      font-size: 35px;
+    }
+    .focus-mode-container
+      .time-container
+      .setting-container
+      .take-a-break-button {
+      padding: 13px 40px;
+    }
+    .focus-mode-container .time-container .setting-container .setting-icon {
+      font-size: 25px;
+    }
+    .focus-mode-container .auto-break-container {
+      margin: 10px 0;
+    }
+    .focus-mode-container .auto-break-container .left {
+      font-size: 14px;
+    }
+    .focus-mode-container .auto-break-container .left .info-icon {
+      font-size: 16px;
+    }
+    .focus-mode-container .duration-container {
+      padding: 15px;
+    }
+    .focus-mode-container .duration-container .top {
+      font-size: 14px;
+      gap: 15px;
+    }
+  }
 `;
 
 const TaskContainer = styled.div`
@@ -492,6 +584,30 @@ const TaskContainer = styled.div`
   & .right .delete-icon {
     font-size: 20px;
     margin-left: 20px;
+  }
+
+  @media (max-width: 1920px) {
+    padding: 20px 0;
+
+    input {
+      width: 15px;
+      height: 15px;
+    }
+    label .list-icon {
+      font-size: 12px;
+    }
+    label > div:first-child {
+      font-size: 12px;
+    }
+    label > div:last-child {
+      font-size: 14px;
+    }
+    .right .priority {
+      font-size: 13px;
+    }
+    .right .delete-icon {
+      font-size: 17px;
+    }
   }
 `;
 
