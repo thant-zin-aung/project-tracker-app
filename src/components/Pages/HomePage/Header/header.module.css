@@ -168,3 +168,44 @@
   font-size: 6px;
   margin-right: 7px;
 }
+
+@media (max-width: 1920px) {
+  .searchBoxContainer {
+    width: 450px;
+    height: 45px;
+  }
+  .dateContainer {
+    font-size: 15px;
+  }
+  .notiContainer .notiIcon {
+    font-size: 18px;
+  }
+  .userInfoContainer .username {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .userInfoContainer .profileImage {
+    width: 35px;
+    height: 35px;
+  }
+  .userInfoContainer .downArrow {
+    font-size: 12px;
+  }
+
+  .bottomContainer {
+    margin-top: 35px;
+  }
+  .peopleContainer .peopleIcon {
+    width: 35px;
+    height: 35px;
+  }
+  .peopleContainer .remainingPeople {
+    font-size: 11px;
+  }
+  .bottomContainer .leftContainer .invitePeopleContainer {
+    width: 130px;
+    height: 35px;
+    font-size: 12px;
+  }
+}
