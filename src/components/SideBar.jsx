@@ -141,6 +141,31 @@ const Nav = styled.nav`
   & .list-item .sub-list::-webkit-scrollbar-thumb:hover {
     background-color: #5d65cd;
   }
+
+  @media (max-width: 1920px) {
+    .header-container h1 {
+      font-size: 20px;
+    }
+    .header-container .add-project-button {
+      width: 30px;
+      height: 30px;
+    }
+    .header-container .plus-icon {
+      font-size: 13px;
+    }
+    .list-item .left-container {
+      font-size: 15px;
+    }
+    .list-item {
+      font-size: 15px;
+    }
+    .list-item.active .sub-list {
+      margin-top: 20px;
+    }
+    .list-item .sub-list li {
+      padding: 7px 0;
+    }
+  }
 `;
 
 export function SideBar({
@@ -158,7 +183,7 @@ export function SideBar({
           className="add-project-button"
           onClick={() => onClickNewProject(clickableButtons.NEW_PROJECT)}
         >
-          <FontAwesomeIcon icon={faPlus} />
+          <FontAwesomeIcon icon={faPlus} className="plus-icon" />
         </button>
       </div>
       <ul>
