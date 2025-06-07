@@ -164,7 +164,7 @@ function Register() {
 
       await setDoc(doc(db, "users", user.uid), { name, email, imageUrl });
       window.location.reload();
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error.message);
       alert("Registration failed: " + error.message);
